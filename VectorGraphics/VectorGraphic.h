@@ -3,6 +3,8 @@
 #include "Point.h"
 #include <vector>
 
+#include <functional>
+
 namespace VG
 {
     using Points = std::vector<Point>;
@@ -43,6 +45,8 @@ namespace VG
         Points myPath;
 
         enum class ShapeStyle { Open, Closed } myShapeStyle;
+
+        std::pair<Point, Point> minmaxDimension(std::function<bool(const Point& pointA, const Point& pointB)>&& compare) const;
     };
 
 }
