@@ -140,6 +140,27 @@ TEST(erasePointOutOfRange, VectorGraphic)
     CHECK(false); // should have caught exception
 }
 
+TEST(getPointOutOfRange, VectorGraphic)
+{
+    VG::VectorGraphic vg;
+    vg.addPoint(VG::Point{ 1, 1 });
+    vg.addPoint(VG::Point{ 2, 2 });
+    vg.addPoint(VG::Point{ 3, 3 });
+
+    bool excpectedException = false;
+
+    try
+    {
+        vg.getPoint(5);
+    }
+    catch (std::out_of_range&)
+    {
+        excpectedException = true;
+    }
+
+    CHECK(excpectedException);
+}
+
 TEST(equality, VectorGraphic)
 {
     VG::VectorGraphic vg1;
