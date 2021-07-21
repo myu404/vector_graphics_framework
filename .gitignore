@@ -35,8 +35,12 @@
 *.out
 *.app
 
+/VectorGraphics_my/VectorGraphics_my/Debug/*
+/VectorGraphics_my/UnitTest_my/Debug/*
+/VectorGraphics_my/Debug/*
+/VectorGraphics_my/CppUnitLite_my/Debug/*
 /VectorGraphics_my/VectorGraphics_my/x64/*
 /VectorGraphics_my/UnitTest_my/x64/*
 /VectorGraphics_my/x64/*
-/VectorGraphics_my/.vs/*
 /VectorGraphics_my/CppUnitLite_my/x64/*
+/VectorGraphics_my/.vs/*

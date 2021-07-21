@@ -1,3 +1,10 @@
+/*
+* Author: Michael Yu
+* C++ Programming, Summer 2021
+* Vector Graphics Framework: Assignment 01
+* 7/20/2021
+*/
+
 #include "VectorGraphic.h"
 
 #include <algorithm>
@@ -7,7 +14,11 @@
 namespace VG
 {
   // ADD IMPLEMENTATION HERE!
-    VectorGraphic::VectorGraphic() {}
+    VectorGraphic::VectorGraphic() 
+        : myPath(),
+        myShapeStyle(ShapeStyle::Closed)
+    {
+    }
 
     void VectorGraphic::addPoint(const Point& p)
     {
@@ -16,7 +27,7 @@ namespace VG
 
     void VectorGraphic::addPoint(Point&& p)
     {
-        myPath.push_back(std::move(p));
+        myPath.emplace_back(std::move(p.getX()), std::move(p.getY()));
     }
 
     void VectorGraphic::removePoint(const Point& p)
@@ -26,14 +37,7 @@ namespace VG
 
     void VectorGraphic::erasePoint(int index)
     {
-        try
-        {
-            removePoint(getPoint(index));
-        }
-        catch (const std::out_of_range& e)
-        {
-            std::cout << e.what() << "Index is out of bounds" << std::endl;
-        }
+        removePoint(getPoint(index));
     }
 
     void VectorGraphic::openShape()
@@ -63,7 +67,7 @@ namespace VG
             return pointA.getX() < pointB.getX();
         };
 
-        auto results = minmaxDimension(std::move(compare));
+        auto results = minmaxDimension(compare);
         return results.second.getX() - results.first.getX();
     }
 
@@ -74,11 +78,11 @@ namespace VG
             return pointA.getY() < pointB.getY();
         };
 
-        auto results = minmaxDimension(std::move(compare));
+        auto results = minmaxDimension(compare);
         return results.second.getY() - results.first.getY();
     }
 
-    std::pair<Point, Point> VectorGraphic::minmaxDimension(std::function<bool(const Point& pointA, const Point& pointB)>&& compare) const
+    std::pair<Point, Point> VectorGraphic::minmaxDimension(std::function<bool(const Point& pointA, const Point& pointB)> compare) const
     {
         auto results = std::minmax_element(myPath.begin(), myPath.end(), compare);
         return std::pair<Point, Point>(*results.first, *results.second);
@@ -92,12 +96,13 @@ namespace VG
 
     const Point& VectorGraphic::getPoint(int index) const
     {
+        // at() throws out of range exception if index is out of orange
         return myPath.at(index);
     }
 
     bool VectorGraphic::operator==(const VectorGraphic& other) const
     {
-        return std::ranges::equal(myPath, other.myPath);
+        return myShapeStyle == other.myShapeStyle && std::ranges::equal(myPath, other.myPath);
     }
 
     bool VectorGraphic::operator!=(const VectorGraphic& other) const

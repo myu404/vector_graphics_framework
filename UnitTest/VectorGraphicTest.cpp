@@ -1,4 +1,11 @@
-#include "Parse.h"
+/*
+* Author: Michael Yu
+* C++ Programming, Summer 2021
+* Vector Graphics Framework: Assignment 01
+* 7/20/2021
+*/
+
+//#include "Parse.h"
 #include "VectorGraphic.h"
 #include "TestHarness.h"
 
@@ -8,6 +15,52 @@ TEST(ctor, VectorGraphic)
     CHECK_EQUAL(0, vg.getPointCount());
     CHECK_EQUAL(true, vg.isClosed());
     CHECK_EQUAL(false, vg.isOpen());
+}
+
+TEST(copyCtor, VectorGraphic)
+{
+    VG::VectorGraphic vg;
+    vg.addPoint(VG::Point{ 1, 1 });
+    vg.addPoint(VG::Point{ 2, 2 });
+
+    VG::VectorGraphic vgCopy(vg);
+    
+    CHECK(vg == vgCopy);
+}
+
+TEST(copyAssignment, VectorGraphic)
+{
+    VG::VectorGraphic vg;
+    vg.addPoint(VG::Point{ 1, 1 });
+    vg.addPoint(VG::Point{ 2, 2 });
+
+    VG::VectorGraphic vgCopy = vg;
+
+    CHECK(vg == vgCopy);
+}
+
+TEST(moveCtor, VectorGraphic)
+{
+    // Data moved to new object. Moved-from object should not equal moved-to object
+    VG::VectorGraphic vg;
+    vg.addPoint(VG::Point{ 1, 1 });
+    vg.addPoint(VG::Point{ 2, 2 });
+
+    VG::VectorGraphic vgMove(std::move(vg));
+
+    CHECK(vg != vgMove);
+}
+
+TEST(moveAssignment, VectorGraphic)
+{
+    // Data moved to new object. Moved-from object should not equal moved-to object
+    VG::VectorGraphic vg;
+    vg.addPoint(VG::Point{ 1, 1 });
+    vg.addPoint(VG::Point{ 2, 2 });
+
+    VG::VectorGraphic vgMove = std::move(vg);
+
+    CHECK(vg != vgMove);
 }
 
 TEST(insertPoint, VectorGraphic)
@@ -20,6 +73,18 @@ TEST(insertPoint, VectorGraphic)
     CHECK_EQUAL(2, vg.getPointCount());
 }
 
+TEST(insertPointLvalue, VectorGraphic)
+{
+    VG::VectorGraphic vg;
+    VG::Point p1{ 1, 1 };
+    vg.addPoint(p1);
+    CHECK_EQUAL(1, vg.getPointCount());
+
+    VG::Point p2{ 2, 2 };
+    vg.addPoint(p2);
+    CHECK_EQUAL(2, vg.getPointCount());
+}
+
 TEST(removePoint, VectorGraphic)
 {
     VG::VectorGraphic vg;
@@ -29,6 +94,18 @@ TEST(removePoint, VectorGraphic)
 
     CHECK_EQUAL(1, vg.getPointCount());
     CHECK_EQUAL(VG::Point(2, 2), vg.getPoint(0));
+}
+
+TEST(removePointNotInPoints, VectorGraphic)
+{
+    VG::VectorGraphic vg;
+    vg.addPoint(VG::Point{ 1, 1 });
+    vg.addPoint(VG::Point{ 2, 2 });
+    vg.removePoint(VG::Point{ 3, 3 });
+
+    CHECK_EQUAL(2, vg.getPointCount());
+    CHECK_EQUAL(VG::Point(1, 1), vg.getPoint(0));
+    CHECK_EQUAL(VG::Point(2, 2), vg.getPoint(1));
 }
 
 TEST(erasePoint, VectorGraphic)

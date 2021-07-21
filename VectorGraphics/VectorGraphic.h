@@ -1,3 +1,10 @@
+/*
+* Author: Michael Yu
+* C++ Programming, Summer 2021
+* Vector Graphics Framework: Assignment 01
+* 7/20/2021
+*/
+
 #pragma once
 
 #include "Point.h"
@@ -46,7 +53,7 @@ namespace VG
 
         enum class ShapeStyle { Open, Closed } myShapeStyle;
 
-        std::pair<Point, Point> minmaxDimension(std::function<bool(const Point& pointA, const Point& pointB)>&& compare) const;
+        std::pair<Point, Point> minmaxDimension(std::function<bool(const Point& pointA, const Point& pointB)> compare) const;
     };
 
 }

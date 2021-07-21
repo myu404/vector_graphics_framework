@@ -22,10 +22,14 @@
     <ProjectReference Include="..\CppUnitLite_my\CppUnitLite_my.vcxproj">
       <Project>{827c81e6-9019-49e9-9ada-d1cb6ab3e123}</Project>
     </ProjectReference>
+    <ProjectReference Include="..\VectorGraphics_my\VectorGraphics_my.vcxproj">
+      <Project>{50880884-1e99-4471-ab53-796353fd617c}</Project>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\UnitTest\PointTest.cpp" />
     <ClCompile Include="..\..\UnitTest\VectorGraphicTest.cpp" />
+    <ClCompile Include="..\..\VectorGraphics\main.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
