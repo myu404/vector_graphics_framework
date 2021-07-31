@@ -151,11 +151,17 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="..\..\VectorGraphics\Layer.cpp" />
+    <ClCompile Include="..\..\VectorGraphics\PlacedGraphic.cpp" />
     <ClCompile Include="..\..\VectorGraphics\Point.cpp" />
+    <ClCompile Include="..\..\VectorGraphics\Scene.cpp" />
     <ClCompile Include="..\..\VectorGraphics\VectorGraphic.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\..\VectorGraphics\Layer.h" />
+    <ClInclude Include="..\..\VectorGraphics\PlacedGraphic.h" />
     <ClInclude Include="..\..\VectorGraphics\Point.h" />
+    <ClInclude Include="..\..\VectorGraphics\Scene.h" />
     <ClInclude Include="..\..\VectorGraphics\VectorGraphic.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

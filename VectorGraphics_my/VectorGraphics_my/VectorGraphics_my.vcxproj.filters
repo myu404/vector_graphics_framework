@@ -21,12 +21,30 @@
     <ClCompile Include="..\..\VectorGraphics\VectorGraphic.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\VectorGraphics\Layer.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\VectorGraphics\PlacedGraphic.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\VectorGraphics\Scene.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\VectorGraphics\Point.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="..\..\VectorGraphics\VectorGraphic.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\VectorGraphics\Layer.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\VectorGraphics\PlacedGraphic.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\VectorGraphics\Scene.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
