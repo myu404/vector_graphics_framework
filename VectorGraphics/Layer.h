@@ -10,6 +10,7 @@ namespace Framework
         // insert, remove, iteration support.
         // accessors to alias.
         Layer(const std::string name);
+        ~Layer() = default;
         void pushBack(PlacedGraphic const& graphic);
         void remove(PlacedGraphic const& graphic);
         std::list<PlacedGraphic>::iterator begin();

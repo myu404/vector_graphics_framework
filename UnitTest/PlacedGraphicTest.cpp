@@ -1,6 +1,7 @@
 #include "PlacedGraphic.h"
 #include "VectorGraphic.h"
 #include "TestHarness.h"
+#include <iostream>
 
 TEST(ctor, PlacedGraphic)
 {
@@ -9,7 +10,8 @@ TEST(ctor, PlacedGraphic)
 
     constexpr VG::Point expected(44, 55);
     CHECK_EQUAL(expected, pg.getPlacementPoint());
-    CHECK_EQUAL(vg.get(), &pg.getGraphic());
+    auto test = pg.getGraphic().get();
+    CHECK_EQUAL(vg.get(), test);
 }
 
 TEST(setPlacementPoint, PlacedGraphic)
@@ -26,6 +28,6 @@ TEST(setGraphic, PlacedGraphic)
     Framework::PlacedGraphic pg;
     VG::HVectorGraphic vg(new VG::VectorGraphic);
     pg.setGraphic(vg);
-
-    CHECK_EQUAL(vg.get(), &pg.getGraphic());
+    auto test = pg.getGraphic().get();
+    CHECK_EQUAL(vg.get(), test);
 }

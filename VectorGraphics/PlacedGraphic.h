@@ -6,7 +6,7 @@
 
 namespace VG
 {
-    using HVectorGraphic = std::unique_ptr<VG::VectorGraphic>;
+    using HVectorGraphic = std::shared_ptr<VG::VectorGraphic>;
 }
 
 namespace Framework
@@ -16,7 +16,16 @@ namespace Framework
     {
     public:
         PlacedGraphic();
-        PlacedGraphic(VG::Point const& point, VG::HVectorGraphic vectorGraphic);
+        PlacedGraphic(VG::Point const& point, VG::HVectorGraphic& vectorGraphic);
+        ~PlacedGraphic() = default;
+
+        PlacedGraphic(const PlacedGraphic& other) = default;
+        PlacedGraphic(PlacedGraphic&& other) = default;
+
+        PlacedGraphic& operator=(const PlacedGraphic&) = default;
+        PlacedGraphic& operator=(PlacedGraphic&&) = default;
+
+
         void setPlacementPoint(VG::Point const& placement);
         VG::Point const& getPlacementPoint() const;
         void setGraphic(VG::HVectorGraphic const& graphic);

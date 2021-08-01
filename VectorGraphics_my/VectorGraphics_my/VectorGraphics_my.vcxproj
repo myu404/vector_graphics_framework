@@ -156,6 +156,10 @@
     <ClCompile Include="..\..\VectorGraphics\Point.cpp" />
     <ClCompile Include="..\..\VectorGraphics\Scene.cpp" />
     <ClCompile Include="..\..\VectorGraphics\VectorGraphic.cpp" />
+    <ClCompile Include="SceneReader.cpp" />
+    <ClCompile Include="SceneWriter.cpp" />
+    <ClCompile Include="XMLReader.cpp" />
+    <ClCompile Include="XMLWriter.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\VectorGraphics\Layer.h" />
@@ -163,6 +167,10 @@
     <ClInclude Include="..\..\VectorGraphics\Point.h" />
     <ClInclude Include="..\..\VectorGraphics\Scene.h" />
     <ClInclude Include="..\..\VectorGraphics\VectorGraphic.h" />
+    <ClInclude Include="SceneReader.h" />
+    <ClInclude Include="SceneWriter.h" />
+    <ClInclude Include="XMLReader.h" />
+    <ClInclude Include="XMLWriter.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

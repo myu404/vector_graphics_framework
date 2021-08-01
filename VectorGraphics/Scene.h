@@ -11,6 +11,7 @@ namespace Framework
         // accessors to width and height.
         Scene() = default;
         Scene(const int width, const int height);
+        ~Scene() = default;
         void pushBack(Layer const& layer);
         void remove(Layer const& layer);
         std::list<Layer>::iterator begin();
