@@ -11,16 +11,10 @@ namespace Framework
         // accessors to alias.
         Layer(const std::string name);
         ~Layer() = default;
-
-        Layer(const Layer& other);
-        Layer(Layer&& other);
-
-        Layer& operator=(const Layer& other);
-
-        // Swap member function
-        void swap(Layer& src);
-
-        Layer& operator=(Layer&& other);
+        Layer(const Layer& other) = default;
+        Layer(Layer&& other) = default;
+        Layer& operator=(const Layer& other) = default;
+        Layer& operator=(Layer&& other) = default;
 
         void pushBack(PlacedGraphic const& graphic);
         void remove(PlacedGraphic const& graphic);

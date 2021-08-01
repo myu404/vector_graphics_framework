@@ -13,15 +13,10 @@ namespace Framework
         Scene(const int width, const int height);
         ~Scene() = default;
 
-        Scene(const Scene& other);
-        Scene(Scene&& other);
-
-        Scene& operator=(const Scene& other);
-
-        // Swap member function
-        void swap(Scene& src);
-
-        Scene& operator=(Scene&& other);
+        Scene(const Scene& other) = default;
+        Scene(Scene&& other) = default;
+        Scene& operator=(const Scene& other) = default;
+        Scene& operator=(Scene&& other) = default;
 
         void pushBack(Layer const& layer);
         void remove(Layer const& layer);
