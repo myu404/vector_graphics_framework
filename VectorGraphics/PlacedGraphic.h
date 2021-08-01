@@ -19,10 +19,14 @@ namespace Framework
         PlacedGraphic(VG::Point const& point, VG::HVectorGraphic& vectorGraphic);
         ~PlacedGraphic() = default;
 
-        PlacedGraphic(const PlacedGraphic& other) = default;
+        PlacedGraphic(const PlacedGraphic& other);
         PlacedGraphic(PlacedGraphic&& other) = default;
 
-        PlacedGraphic& operator=(const PlacedGraphic&) = default;
+        PlacedGraphic& operator=(const PlacedGraphic& other);
+
+        // Swap member function
+        void swap(PlacedGraphic& src);
+
         PlacedGraphic& operator=(PlacedGraphic&&) = default;
 
 

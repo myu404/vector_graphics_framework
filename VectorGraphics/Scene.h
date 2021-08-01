@@ -12,6 +12,17 @@ namespace Framework
         Scene() = default;
         Scene(const int width, const int height);
         ~Scene() = default;
+
+        Scene(const Scene& other);
+        Scene(Scene&& other);
+
+        Scene& operator=(const Scene& other);
+
+        // Swap member function
+        void swap(Scene& src);
+
+        Scene& operator=(Scene&& other);
+
         void pushBack(Layer const& layer);
         void remove(Layer const& layer);
         std::list<Layer>::iterator begin();

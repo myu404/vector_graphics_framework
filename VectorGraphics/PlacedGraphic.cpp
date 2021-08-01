@@ -14,6 +14,28 @@ namespace Framework
     {
     }
 
+    // Copy ctor implementation
+    PlacedGraphic::PlacedGraphic(const PlacedGraphic& other)
+        : placementPoint(other.placementPoint),
+        graphic(std::make_shared<VG::VectorGraphic>(*(other.graphic)))
+    {
+    }
+
+    // Copy assignment implementation
+    PlacedGraphic& PlacedGraphic::operator=(const PlacedGraphic& other)
+    {
+        auto temp = other;
+        temp.swap(*this);
+        return *this;
+    }
+
+    // Swap member function
+    void PlacedGraphic::swap(PlacedGraphic& src)
+    {
+        graphic.swap(src.graphic);
+        std::swap(placementPoint, src.placementPoint);
+    }
+
     void PlacedGraphic::setPlacementPoint(VG::Point const& placement)
     {
         placementPoint = placement;
