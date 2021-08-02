@@ -19,14 +19,16 @@ namespace Framework
         PlacedGraphic(VG::Point const& point, VG::HVectorGraphic& vectorGraphic);
         ~PlacedGraphic() = default;
 
+        // Implemented move and copy semantics for PlacedGraphic class
+        // HVectorGraphic copy semantic performs a deep copy in lieu of shallow copy
+        // Object pointed by HVectorGraphic is a copy at another address
         PlacedGraphic(const PlacedGraphic& other);
-        PlacedGraphic(PlacedGraphic&& other) = default;
-
         PlacedGraphic& operator=(const PlacedGraphic& other);
 
         // Swap member function
         void swap(PlacedGraphic& src);
 
+        PlacedGraphic(PlacedGraphic&& other) = default;
         PlacedGraphic& operator=(PlacedGraphic&&) = default;
 
 

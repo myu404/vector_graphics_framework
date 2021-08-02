@@ -13,6 +13,8 @@ namespace Framework
         Scene(const int width, const int height);
         ~Scene() = default;
 
+        // Using default compiler generated move and copy semantics for Scene class
+        // Member-wise move and copy semantics will invoke the member's move and copy semantics
         Scene(const Scene& other) = default;
         Scene(Scene&& other) = default;
         Scene& operator=(const Scene& other) = default;

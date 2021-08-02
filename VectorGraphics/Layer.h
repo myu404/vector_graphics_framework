@@ -11,6 +11,9 @@ namespace Framework
         // accessors to alias.
         Layer(const std::string name);
         ~Layer() = default;
+
+        // Using default compiler generated move and copy semantics for Scene class
+        // Member-wise move and copy semantics will invoke the member's move and copy semantics
         Layer(const Layer& other) = default;
         Layer(Layer&& other) = default;
         Layer& operator=(const Layer& other) = default;
