@@ -1,20 +1,11 @@
 #include "Scene.h"
 
-
-
 namespace Framework
 {
     Scene::Scene(const int width, const int height)
         : layers(),
         width(width),
         height(height)
-    {
-    }
-
-    Scene::Scene(const Scene& other)
-        : layers(other.layers),
-        width(other.width),
-        height(other.height)
     {
     }
 

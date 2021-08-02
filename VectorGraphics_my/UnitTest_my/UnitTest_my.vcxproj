@@ -27,6 +27,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="..\..\UnitTest\LayerTest.cpp" />
     <ClCompile Include="..\..\UnitTest\PlacedGraphicTest.cpp" />
     <ClCompile Include="..\..\UnitTest\PointTest.cpp" />
     <ClCompile Include="..\..\UnitTest\SceneTest.cpp" />
