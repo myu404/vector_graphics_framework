@@ -67,7 +67,8 @@ namespace VG
             return pointA.getX() < pointB.getX();
         };
 
-        auto results = minmaxDimension(compare);
+        auto [minX, maxX] = minmaxDimension(compare);
+
         return results.second.getX() - results.first.getX();
     }
 
