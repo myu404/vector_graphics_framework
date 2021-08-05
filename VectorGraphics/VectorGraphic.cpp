@@ -71,6 +71,7 @@ namespace VG
             return pointA.getX() < pointB.getX();
         };
 
+        // implemented structured binding
         auto [minX, maxX] = minmaxDimension(compare);
 
         return maxX.getX() - minX.getX();
@@ -83,6 +84,7 @@ namespace VG
             return pointA.getY() < pointB.getY();
         };
 
+        // implemented structured binding
         auto [minY, maxY] = minmaxDimension(compare);
 
         return maxY.getY() - minY.getY();
