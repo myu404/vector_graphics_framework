@@ -57,9 +57,12 @@ TEST(copyAssignment, Point)
 {
     VG::Point p(1, 2);
 
-    VG::Point pCopy = p;
+    VG::Point pCopy(199, 299);
+
+    pCopy = p;
 
     CHECK(p == pCopy);
+    CHECK(pCopy != VG::Point(199, 299));
 }
 
 
@@ -74,25 +77,24 @@ TEST(outputOperator, Point)
     CHECK_EQUAL("Point x=\"1\" y=\"2\"", ss.str());
 }
 
-/*
-* Test not passing like it did for VectorGraphic. Possibly because moving primitive types
 TEST(moveCtor, Point)
 {
-    // Data moved to new object. Moved-from object should not equal moved-to object
+    // Moving is the same as copying for POD (plain old data) types
     VG::Point p(1, 2);
 
     VG::Point pMove(std::move(p));
 
-    CHECK(p != pMove);
+    CHECK(p == pMove);
 }
 
 TEST(moveAssignment, Point)
 {
-    // Data moved to new object. Moved-from object should not equal moved-to object
+    // Moving is the same as copying for POD (plain old data) types
     VG::Point p(1, 2);
 
-    VG::Point pMove = std::move(p);
+    VG::Point pMove(199, 299);
 
-    CHECK(p != pMove);
+    pMove = std::move(p);
+
+    CHECK(p == pMove);
 }
-*/

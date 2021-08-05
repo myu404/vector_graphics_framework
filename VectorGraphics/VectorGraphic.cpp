@@ -22,17 +22,21 @@ namespace VG
 
     void VectorGraphic::addPoint(const Point& p)
     {
-        myPath.emplace_back(p.getX(), p.getY());
+        myPath.push_back(p);
     }
 
     void VectorGraphic::addPoint(Point&& p)
     {
-        myPath.emplace_back(std::move(p.getX()), std::move(p.getY()));
+        myPath.push_back(std::move(p));
     }
 
     void VectorGraphic::removePoint(const Point& p)
     {
-        myPath.erase(std::remove(myPath.begin(), myPath.end(), p), myPath.end());
+        auto newEndItr = std::remove(myPath.begin(), myPath.end(), p);
+        
+        if (newEndItr == myPath.end()) throw std::invalid_argument("Point does not exist in Vector Graphic. Nothing is removed/erased");
+        
+        myPath.erase(newEndItr, myPath.end());
     }
 
     void VectorGraphic::erasePoint(int index)
@@ -67,8 +71,9 @@ namespace VG
             return pointA.getX() < pointB.getX();
         };
 
-        auto results = minmaxDimension(compare);
-        return results.second.getX() - results.first.getX();
+        auto [minX, maxX] = minmaxDimension(compare);
+
+        return maxX.getX() - minX.getX();
     }
 
     int VectorGraphic::getHeight() const
@@ -78,8 +83,9 @@ namespace VG
             return pointA.getY() < pointB.getY();
         };
 
-        auto results = minmaxDimension(compare);
-        return results.second.getY() - results.first.getY();
+        auto [minY, maxY] = minmaxDimension(compare);
+
+        return maxY.getY() - minY.getY();
     }
 
     std::pair<Point, Point> VectorGraphic::minmaxDimension(std::function<bool(const Point& pointA, const Point& pointB)> compare) const
@@ -102,7 +108,7 @@ namespace VG
 
     bool VectorGraphic::operator==(const VectorGraphic& other) const
     {
-        return myShapeStyle == other.myShapeStyle && std::ranges::equal(myPath, other.myPath);
+        return myShapeStyle == other.myShapeStyle && myPath == other.myPath;
     }
 
     bool VectorGraphic::operator!=(const VectorGraphic& other) const

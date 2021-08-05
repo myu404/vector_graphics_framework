@@ -101,11 +101,19 @@ TEST(removePointNotInPoints, VectorGraphic)
     VG::VectorGraphic vg;
     vg.addPoint(VG::Point{ 1, 1 });
     vg.addPoint(VG::Point{ 2, 2 });
-    vg.removePoint(VG::Point{ 3, 3 });
 
-    CHECK_EQUAL(2, vg.getPointCount());
-    CHECK_EQUAL(VG::Point(1, 1), vg.getPoint(0));
-    CHECK_EQUAL(VG::Point(2, 2), vg.getPoint(1));
+    bool expectedException = false;
+
+    try
+    {
+        vg.removePoint(VG::Point{ 3, 3 });
+    }
+    catch (std::invalid_argument&)
+    {
+        expectedException = true;
+    }
+
+    CHECK(expectedException);
 }
 
 TEST(erasePoint, VectorGraphic)
