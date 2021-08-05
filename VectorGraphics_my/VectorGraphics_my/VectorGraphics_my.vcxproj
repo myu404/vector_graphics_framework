@@ -155,14 +155,22 @@
     <ClCompile Include="..\..\VectorGraphics\PlacedGraphic.cpp" />
     <ClCompile Include="..\..\VectorGraphics\Point.cpp" />
     <ClCompile Include="..\..\VectorGraphics\Scene.cpp" />
+    <ClCompile Include="..\..\VectorGraphics\SceneReader.cpp" />
+    <ClCompile Include="..\..\VectorGraphics\SceneWriter.cpp" />
     <ClCompile Include="..\..\VectorGraphics\VectorGraphic.cpp" />
+    <ClCompile Include="..\..\VectorGraphics\XMLReader.cpp" />
+    <ClCompile Include="..\..\VectorGraphics\XMLWriter.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\VectorGraphics\Layer.h" />
     <ClInclude Include="..\..\VectorGraphics\PlacedGraphic.h" />
     <ClInclude Include="..\..\VectorGraphics\Point.h" />
     <ClInclude Include="..\..\VectorGraphics\Scene.h" />
+    <ClInclude Include="..\..\VectorGraphics\SceneReader.h" />
+    <ClInclude Include="..\..\VectorGraphics\SceneWriter.h" />
     <ClInclude Include="..\..\VectorGraphics\VectorGraphic.h" />
+    <ClInclude Include="..\..\VectorGraphics\XMLReader.h" />
+    <ClInclude Include="..\..\VectorGraphics\XMLWriter.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

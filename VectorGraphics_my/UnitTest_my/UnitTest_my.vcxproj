@@ -30,8 +30,10 @@
     <ClCompile Include="..\..\UnitTest\LayerTest.cpp" />
     <ClCompile Include="..\..\UnitTest\PlacedGraphicTest.cpp" />
     <ClCompile Include="..\..\UnitTest\PointTest.cpp" />
+    <ClCompile Include="..\..\UnitTest\SceneReaderTest.cpp" />
     <ClCompile Include="..\..\UnitTest\SceneTest.cpp" />
     <ClCompile Include="..\..\UnitTest\VectorGraphicTest.cpp" />
+    <ClCompile Include="..\..\UnitTest\XmlWriterTest.cpp" />
     <ClCompile Include="..\..\VectorGraphics\main.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">

@@ -8,7 +8,7 @@ namespace Framework
     {
     }
 
-    PlacedGraphic::PlacedGraphic(VG::Point const& point, VG::HVectorGraphic& vectorGraphic)
+    PlacedGraphic::PlacedGraphic(VG::Point const& point, VG::HVectorGraphic vectorGraphic)
         : placementPoint(point),
         graphic(vectorGraphic)
     {

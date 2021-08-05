@@ -16,7 +16,7 @@ namespace Framework
     {
     public:
         PlacedGraphic();
-        PlacedGraphic(VG::Point const& point, VG::HVectorGraphic& vectorGraphic);
+        PlacedGraphic(VG::Point const& point, VG::HVectorGraphic vectorGraphic);
         ~PlacedGraphic() = default;
 
         // Implemented move and copy semantics for PlacedGraphic class
