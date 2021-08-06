@@ -54,9 +54,9 @@ TEST(ReadScene, SceneReader)
         {
             // verify sky layer
             CHECK_EQUAL("sky", layer.getAlias());
-            Framework::Layer::PlacedGraphicIterator graphic;
-            int iGraphic;
-            for (iGraphic = 0, graphic = layer.begin(); graphic != layer.end(); ++iGraphic, ++graphic)
+            //Framework::Layer::PlacedGraphicIterator graphic;
+            int iGraphic = 0;
+            for (auto graphic = layer.begin(); graphic != layer.end(); ++iGraphic, ++graphic)
             {
                 if (iGraphic == 0)
                 {

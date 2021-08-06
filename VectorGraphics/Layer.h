@@ -5,6 +5,8 @@
 
 namespace Framework
 {
+    //using PlacedGraphicIterator = std::list<PlacedGraphic>::iterator;
+
     class Layer
     {
     public:
