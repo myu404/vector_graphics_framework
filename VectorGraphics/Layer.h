@@ -1,3 +1,4 @@
+#pragma once
 #include "PlacedGraphic.h"
 #include <list>
 #include <string>
@@ -24,6 +25,15 @@ namespace Framework
         std::list<PlacedGraphic>::iterator begin();
         std::list<PlacedGraphic>::iterator end();
         std::string getAlias() const;
+
+        /*
+        static class PlacedGraphicIterator : public std::list<PlacedGraphic>::iterator
+        {
+        public:
+            ~PlacedGraphicIterator() = default;
+        };
+        */
+
     private:
         std::list<PlacedGraphic> graphics;
         std::string alias;

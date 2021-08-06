@@ -1,3 +1,5 @@
+#pragma once
+
 #include "Layer.h"
 #include <list>
 

@@ -1,6 +1,10 @@
+#pragma once
+#include "Element.h"
 #include "XmlReader.h"
 #include "VectorGraphic.h"
 #include "TestHarness.h"
+#include "tinyxml2.h"
+#include <memory>
 
 #define STR(a) #a
 
@@ -54,7 +58,7 @@ TEST(loadXml, XmlReader)
     CHECK(!children.empty());
     CHECK_EQUAL(2, children.size());
 
-    Xml::HElement layer0 = children[0];
+    Xml::HElement layer0 = std::make_shared<Xml::Element>(children[0]);
     CHECK_EQUAL("Layer", layer0->getName());
     attributes = layer0->getAttributes();
     CHECK(!attributes.empty());
@@ -64,7 +68,7 @@ TEST(loadXml, XmlReader)
     Xml::ElementList layerChildren = layer0->getChildElements();
     CHECK(!layerChildren.empty());
     CHECK_EQUAL(2, layerChildren.size());
-    Xml::HElement placedGraphic = layerChildren[0];
+    Xml::HElement placedGraphic = std::make_shared<Xml::Element>(layerChildren[0]);
     CHECK_EQUAL("PlacedGraphic", placedGraphic->getName());
     attributes = placedGraphic->getAttributes();
     CHECK(!attributes.empty());

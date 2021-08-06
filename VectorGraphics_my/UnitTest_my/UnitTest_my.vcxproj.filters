@@ -33,10 +33,7 @@
     <ClCompile Include="..\..\UnitTest\LayerTest.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\UnitTest\SceneReaderTest.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\UnitTest\XmlWriterTest.cpp">
+    <ClCompile Include="..\..\UnitTest\XmlReaderTest.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

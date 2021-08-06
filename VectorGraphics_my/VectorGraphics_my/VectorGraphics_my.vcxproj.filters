@@ -30,16 +30,10 @@
     <ClCompile Include="..\..\VectorGraphics\Scene.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\VectorGraphics\SceneReader.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\VectorGraphics\SceneWriter.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\VectorGraphics\XMLReader.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\VectorGraphics\XMLWriter.cpp">
+    <ClCompile Include="..\..\VectorGraphics\Element.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -59,16 +53,10 @@
     <ClInclude Include="..\..\VectorGraphics\Scene.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\VectorGraphics\SceneReader.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\VectorGraphics\SceneWriter.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\VectorGraphics\XMLReader.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\VectorGraphics\XMLWriter.h">
+    <ClInclude Include="..\..\VectorGraphics\Element.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
