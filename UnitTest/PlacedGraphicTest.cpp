@@ -1,3 +1,4 @@
+#pragma once
 #include "PlacedGraphic.h"
 #include "VectorGraphic.h"
 #include "TestHarness.h"

@@ -3,7 +3,6 @@
 #include "XmlReader.h"
 #include "VectorGraphic.h"
 #include "TestHarness.h"
-#include "tinyxml2.h"
 #include <memory>
 
 #define STR(a) #a

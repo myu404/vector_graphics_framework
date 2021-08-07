@@ -1,18 +1,9 @@
 #include "XMLReader.h"
 #include <sstream>
+#include <iostream>
 
 namespace Xml
 {
-    /*
-    HElement Reader::loadXml(std::stringstream& istream)
-    {
-        tinyxml2::XMLDocument xmlDoc;
-        xmlDoc.Parse(istream.str().c_str());
-        tinyxml2::XMLElement* element = xmlDoc.RootElement();
-
-        return std::make_shared<Element>(loadXml(element));
-    }
-    */
     HElement Reader::loadXml(std::istream& istream)
     {
         tinyxml2::XMLDocument xmlDoc;
@@ -28,6 +19,7 @@ namespace Xml
     Element Reader::loadXml(tinyxml2::XMLElement* xmlElement)
     {
         Element element(xmlElement->Name());
+        std::cout << xmlElement->Name() << std::endl;
         const tinyxml2::XMLAttribute* pAttr = xmlElement->FirstAttribute();
         while (pAttr)
         {

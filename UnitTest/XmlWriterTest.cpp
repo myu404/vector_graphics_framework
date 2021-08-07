@@ -1,3 +1,4 @@
+#pragma once
 #include "XmlWriter.h"
 #include "XmlReader.h"
 #include "VectorGraphic.h"

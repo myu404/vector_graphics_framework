@@ -1,3 +1,4 @@
+#pragma once
 #include "XmlReader.h"
 #include "Element.h"
 #include "Scene.h"

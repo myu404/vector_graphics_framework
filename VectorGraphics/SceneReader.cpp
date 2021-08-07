@@ -51,6 +51,5 @@ namespace Framework
         }
 
         return scene;
-
     }
 }

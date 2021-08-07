@@ -1,3 +1,4 @@
+#pragma once
 #include "Layer.h"
 #include "TestHarness.h"
 #include <algorithm>
