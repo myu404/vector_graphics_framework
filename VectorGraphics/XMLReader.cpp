@@ -3,10 +3,22 @@
 
 namespace Xml
 {
+    /*
     HElement Reader::loadXml(std::stringstream& istream)
     {
         tinyxml2::XMLDocument xmlDoc;
         xmlDoc.Parse(istream.str().c_str());
+        tinyxml2::XMLElement* element = xmlDoc.RootElement();
+
+        return std::make_shared<Element>(loadXml(element));
+    }
+    */
+    HElement Reader::loadXml(std::istream& istream)
+    {
+        tinyxml2::XMLDocument xmlDoc;
+        std::stringstream ss;
+        ss << istream.rdbuf();
+        xmlDoc.Parse(ss.str().c_str());
         tinyxml2::XMLElement* element = xmlDoc.RootElement();
 
         return std::make_shared<Element>(loadXml(element));
@@ -33,7 +45,6 @@ namespace Xml
             //next sibling
             childElement = childElement->NextSiblingElement();
         }
-        
         return element;
     }
 }

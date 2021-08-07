@@ -2,6 +2,8 @@
 #include "XmlReader.h"
 #include "VectorGraphic.h"
 #include "TestHarness.h"
+#include <iostream>
+#include <fstream>
 
 #define STR(a) #a
 
@@ -35,12 +37,129 @@ const char* const SceneXml = STR(
 </Scene>);
 
 
-TEST(writeXml, XmlWriter)
+TEST(writeXmlStringStream, XmlWriter)
 {
     std::stringstream xmlStream(SceneXml);
     Xml::HElement root = Xml::Reader::loadXml(xmlStream);
-    Xml::Writer::writeXml(root, std::cout);
-    
-    // TODO: find a good automated way to verify instead of looking at cout.
-    // Strings don't have to be equal, so string comparison wouldn't work well.
+    //Xml::Writer::writeXml(root, std::cout);
+
+    std::stringstream ssInput;
+    Xml::Writer::writeXml(root, ssInput);
+
+    Xml::HElement rootFile = Xml::Reader::loadXml(ssInput);
+
+    CHECK_EQUAL("Scene", rootFile->getName());
+    CHECK_EQUAL("800", rootFile->getAttribute("width"));
+    CHECK_EQUAL("600", rootFile->getAttribute("height"));
+    CHECK(root->getAttribute("depth").empty());
+
+    Xml::AttributeMap attributes = rootFile->getAttributes();
+    CHECK(!attributes.empty());
+    CHECK_EQUAL(2, attributes.size());
+    CHECK_EQUAL("800", attributes["width"])
+    CHECK_EQUAL("600", attributes["height"])
+
+    Xml::ElementList children = rootFile->getChildElements();
+    CHECK(!children.empty());
+    CHECK_EQUAL(2, children.size());
+
+    Xml::HElement layer0 = children[0];
+    CHECK_EQUAL("Layer", layer0->getName());
+    attributes = layer0->getAttributes();
+    CHECK(!attributes.empty());
+    CHECK_EQUAL(1, attributes.size());
+    CHECK_EQUAL("sky", layer0->getAttribute("alias"));
+
+    Xml::ElementList layerChildren = layer0->getChildElements();
+    CHECK(!layerChildren.empty());
+    CHECK_EQUAL(2, layerChildren.size());
+    Xml::HElement placedGraphic = layerChildren[0];
+    CHECK_EQUAL("PlacedGraphic", placedGraphic->getName());
+    attributes = placedGraphic->getAttributes();
+    CHECK(!attributes.empty());
+    CHECK_EQUAL(2, attributes.size());
+    CHECK_EQUAL("0", placedGraphic->getAttribute("x"));
+    CHECK_EQUAL("0", placedGraphic->getAttribute("y"));
+
+    Xml::ElementList placedGraphicChildren = placedGraphic->getChildElements();
+    CHECK(!placedGraphicChildren.empty());
+    CHECK_EQUAL(1, placedGraphicChildren.size());
+    Xml::HElement vectorGraphic = placedGraphicChildren[0];
+    CHECK_EQUAL("VectorGraphic", vectorGraphic->getName());
+    attributes = vectorGraphic->getAttributes();
+    CHECK(!attributes.empty());
+    CHECK_EQUAL(1, attributes.size());
+    CHECK_EQUAL("true", vectorGraphic->getAttribute("closed"));
+
+    Xml::HElement layer1 = children[1];
+    CHECK_EQUAL("Layer", layer1->getName());
+    attributes = layer1->getAttributes();
+    CHECK(!attributes.empty());
+    CHECK_EQUAL(1, attributes.size());
+    CHECK_EQUAL("mountains", layer1->getAttribute("alias"));
+}
+
+TEST(writeXmlFileStream, XmlWriter)
+{
+    std::stringstream xmlStream(SceneXml);
+    Xml::HElement root = Xml::Reader::loadXml(xmlStream);
+
+    std::ofstream file("fileStream.xml");
+    Xml::Writer::writeXml(root, file);
+    file.close();
+
+    std::ifstream fileInput;
+    fileInput.open("fileStream.xml");
+    Xml::HElement rootFile = Xml::Reader::loadXml(fileInput);
+    fileInput.close();
+
+    CHECK_EQUAL("Scene", rootFile->getName());
+    CHECK_EQUAL("800", rootFile->getAttribute("width"));
+    CHECK_EQUAL("600", rootFile->getAttribute("height"));
+    CHECK(root->getAttribute("depth").empty());
+
+    Xml::AttributeMap attributes = rootFile->getAttributes();
+    CHECK(!attributes.empty());
+    CHECK_EQUAL(2, attributes.size());
+    CHECK_EQUAL("800", attributes["width"])
+        CHECK_EQUAL("600", attributes["height"])
+
+        Xml::ElementList children = rootFile->getChildElements();
+    CHECK(!children.empty());
+    CHECK_EQUAL(2, children.size());
+
+    Xml::HElement layer0 = children[0];
+    CHECK_EQUAL("Layer", layer0->getName());
+    attributes = layer0->getAttributes();
+    CHECK(!attributes.empty());
+    CHECK_EQUAL(1, attributes.size());
+    CHECK_EQUAL("sky", layer0->getAttribute("alias"));
+
+    Xml::ElementList layerChildren = layer0->getChildElements();
+    CHECK(!layerChildren.empty());
+    CHECK_EQUAL(2, layerChildren.size());
+    Xml::HElement placedGraphic = layerChildren[0];
+    CHECK_EQUAL("PlacedGraphic", placedGraphic->getName());
+    attributes = placedGraphic->getAttributes();
+    CHECK(!attributes.empty());
+    CHECK_EQUAL(2, attributes.size());
+    CHECK_EQUAL("0", placedGraphic->getAttribute("x"));
+    CHECK_EQUAL("0", placedGraphic->getAttribute("y"));
+
+    Xml::ElementList placedGraphicChildren = placedGraphic->getChildElements();
+    CHECK(!placedGraphicChildren.empty());
+    CHECK_EQUAL(1, placedGraphicChildren.size());
+    Xml::HElement vectorGraphic = placedGraphicChildren[0];
+    CHECK_EQUAL("VectorGraphic", vectorGraphic->getName());
+    attributes = vectorGraphic->getAttributes();
+    CHECK(!attributes.empty());
+    CHECK_EQUAL(1, attributes.size());
+    CHECK_EQUAL("true", vectorGraphic->getAttribute("closed"));
+
+    Xml::HElement layer1 = children[1];
+    CHECK_EQUAL("Layer", layer1->getName());
+    attributes = layer1->getAttributes();
+    CHECK(!attributes.empty());
+    CHECK_EQUAL(1, attributes.size());
+    CHECK_EQUAL("mountains", layer1->getAttribute("alias"));
 }

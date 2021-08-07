@@ -3,6 +3,7 @@
 #include "Scene.h"
 #include "SceneReader.h"
 #include "TestHarness.h"
+#include <fstream>
 
 const std::string TestXml = R"(
 <Scene width="800" height="600">
@@ -95,4 +96,67 @@ TEST(ReadScene, SceneReader)
 
     // Expect 2 layers
     CHECK_EQUAL(2, numberOfLayers);
+}
+
+TEST(ReadSceneFile, SceneReader)
+{
+    std::ifstream fileStream;
+    fileStream.open("fileStream2.xml");
+    auto root = Xml::Reader::loadXml(fileStream);
+    fileStream.close();
+    auto s = Framework::SceneReader::readScene(*root);
+
+    CHECK_EQUAL(900, s.getWidth());
+    CHECK_EQUAL(600, s.getHeight());
+
+    int numberOfLayers = 0;
+    for (auto pos = s.begin(); pos != s.end(); ++numberOfLayers, ++pos)
+    {
+        auto layer = (*pos);
+        if (numberOfLayers == 0)
+        {
+            // verify sky layer
+            CHECK_EQUAL("sky", layer.getAlias());
+            //Framework::Layer::PlacedGraphicIterator graphic;
+            int iGraphic = 0;
+            for (auto graphic = layer.begin(); graphic != layer.end(); ++iGraphic, ++graphic)
+            {
+                if (iGraphic == 0)
+                {
+                    CHECK_EQUAL(VG::Point(0, 0), (*graphic).getPlacementPoint());
+                    auto vg = (*graphic).getGraphic();
+                    CHECK_EQUAL(true, vg->isClosed());
+                    CHECK_EQUAL(3, vg->getPointCount());
+                    CHECK_EQUAL(VG::Point(1, 2), vg->getPoint(0));
+                    CHECK_EQUAL(VG::Point(3, 4), vg->getPoint(1));
+                    CHECK_EQUAL(VG::Point(5, 6), vg->getPoint(2));
+                }
+                else if (iGraphic == 1)
+                {
+                    CHECK_EQUAL(VG::Point(700, 0), (*graphic).getPlacementPoint());
+                    auto vg = (*graphic).getGraphic();
+                    CHECK_EQUAL(true, vg->isClosed());
+                }
+            }
+
+            CHECK_EQUAL(2, iGraphic);
+        }
+        else if (numberOfLayers == 1)
+        {
+            // verify mountains layer
+            CHECK_EQUAL("mountains", layer.getAlias());
+
+            int numberOfGraphics = 0;
+            for (auto graphic = layer.begin(); graphic != layer.end(); ++graphic)
+            {
+                ++numberOfGraphics;
+            }
+
+            CHECK_EQUAL(1, numberOfGraphics);
+        }
+    }
+
+    // Expect 2 layers
+    CHECK_EQUAL(2, numberOfLayers);
+
 }

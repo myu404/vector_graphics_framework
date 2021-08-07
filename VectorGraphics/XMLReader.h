@@ -9,7 +9,8 @@ namespace Xml
     class Reader
     {
     public:
-        static HElement loadXml(std::stringstream& istream);
+        //static HElement loadXml(std::stringstream& istream);
+        static HElement loadXml(std::istream& istream);
 
     private:
         // Helper recursive function to parse XML
