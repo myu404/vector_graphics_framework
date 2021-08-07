@@ -24,25 +24,28 @@ namespace Framework
 
             for (auto placedGraphicElement = placedGraphicElements.begin(); placedGraphicElement != placedGraphicElements.end(); ++placedGraphicElement)
             {
-                PlacedGraphic pg;
-                VG::Point point(std::stoi(placedGraphicElement->get()->getAttribute("x")), std::stoi(placedGraphicElement->get()->getAttribute("y")));
-                pg.setPlacementPoint(point);
-
                 auto vectorGraphicElement = placedGraphicElement->get()->getChildElements();
                 if (vectorGraphicElement.size() != 1) throw std::invalid_argument("PlacedGraphic must have only 1 VectorGraphic");
 
                 VG::HVectorGraphic vg(new VG::VectorGraphic);
 
-                if (vectorGraphicElement.at(0)->getAttribute("closed") == "true") vg->closeShape();
-                else vg->openShape();
+                (vectorGraphicElement.at(0)->getAttribute("closed") == "true") ? vg->closeShape() : vg->openShape();
                 
                 auto pointElements = vectorGraphicElement.at(0)->getChildElements();
 
-                for (auto pointElement = pointElements.begin(); pointElement != pointElements.end(); ++pointElement)
+                for (auto pointElement : pointElements)
                 {
-                    vg->addPoint(VG::Point(std::stoi(pointElement->get()->getAttribute("x")), std::stoi(pointElement->get()->getAttribute("y"))));
+                    vg->addPoint(VG::Point(std::stoi(pointElement->getAttribute("x")), std::stoi(pointElement->getAttribute("y"))));
                 }
 
+                PlacedGraphic pg;
+                VG::Point point(std::stoi(placedGraphicElement->get()->getAttribute("x")), std::stoi(placedGraphicElement->get()->getAttribute("y")));
+                
+                auto graphicWidth = point.getX() + vg->getWidth();
+                auto graphicHeight = point.getY() + vg->getHeight();
+                if (graphicWidth > width || graphicHeight > height) throw std::out_of_range("Placement of VectorGraphic is out of bounds");
+
+                pg.setPlacementPoint(point);
                 pg.setGraphic(vg);
                 layer.pushBack(pg);
             }
