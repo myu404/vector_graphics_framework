@@ -10,6 +10,6 @@ namespace Framework
     class SceneWriter
     {
     public:
-        static Xml::HElement writeScene(const Scene& rootElement);
+        static Xml::HElement writeScene(Scene& scene);
     };
 }

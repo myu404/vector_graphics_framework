@@ -1,56 +1,50 @@
 #include "SceneWriter.h"
 #include "VectorGraphic.h"
+#include "Scene.h"
+#include "Element.h"
 #include <sstream>
 #include <iostream>
 
 namespace Framework
 {
-    Xml::HElement SceneWriter::writeScene(const Scene& rootElement)
+    Xml::HElement SceneWriter::writeScene(Scene& scene)
     {
-        if (rootElement.getName() != "Scene") throw std::invalid_argument("Bad XML data");
-
-        int width = std::stoi(rootElement.getAttribute("width"));
-        int height = std::stoi(rootElement.getAttribute("height"));
-
-        Scene scene(width, height);
-
-        auto layerElements = rootElement.getChildElements();
-
-        for (auto layerElement = layerElements.begin(); layerElement != layerElements.end(); ++layerElement)
+        Xml::Element sceneElement("Scene");
+        sceneElement.addAttribute("width", std::to_string(scene.getWidth()));
+        sceneElement.addAttribute("height", std::to_string(scene.getHeight()));
+        
+        for (auto layer = scene.begin(); layer != scene.end(); ++layer)
         {
-            Layer layer(layerElement->getAttribute("alias"));
+            Xml::Element layerElement("Layer");
+            layerElement.addAttribute("alias", layer->getAlias());
 
-            auto placedGraphicElements = layerElement->getChildElements();
-
-            for (auto placedGraphicElement = placedGraphicElements.begin(); placedGraphicElement != placedGraphicElements.end(); ++placedGraphicElement)
+            for (auto placedGraphic = layer->begin(); placedGraphic != layer->end(); ++placedGraphic)
             {
-                PlacedGraphic pg;
-                VG::Point point(std::stoi(placedGraphicElement->getAttribute("x")), std::stoi(placedGraphicElement->getAttribute("y")));
-                pg.setPlacementPoint(point);
+                Xml::Element placedGraphicElement("PlacedGraphic");
+                auto placementPoint = placedGraphic->getPlacementPoint();
+                placedGraphicElement.addAttribute("x", std::to_string(placementPoint.getX()));
+                placedGraphicElement.addAttribute("y", std::to_string(placementPoint.getY()));
+                
 
-                auto vectorGraphicElement = placedGraphicElement->getChildElements();
-                if (vectorGraphicElement.size() != 1) throw std::invalid_argument("PlacedGraphic must have only 1 VectorGraphic");
-
-                VG::HVectorGraphic vg(new VG::VectorGraphic);
-
-                if (vectorGraphicElement.at(0).getAttribute("closed") == "true") vg->closeShape();
-                else vg->openShape();
-
-                auto pointElements = vectorGraphicElement.at(0).getChildElements();
-
-                for (auto pointElement = pointElements.begin(); pointElement != pointElements.end(); ++pointElement)
+                Xml::Element vectorGraphicElement("VectorGraphic");
+                auto vectorGraphic = placedGraphic->getGraphic();
+                vectorGraphicElement.addAttribute("closed", (vectorGraphic->isClosed()) ? "true" : "false");
+                
+                for (size_t index = 0; index < vectorGraphic->getPointCount(); ++index)
                 {
-                    vg->addPoint(VG::Point(std::stoi(pointElement->getAttribute("x")), std::stoi(pointElement->getAttribute("y"))));
+                    Xml::Element pointElement("Point");
+                    auto point = vectorGraphic->getPoint(index);
+                    pointElement.addAttribute("x", std::to_string(point.getX()));
+                    pointElement.addAttribute("y", std::to_string(point.getY()));
+
+                    vectorGraphicElement.addChildElement(pointElement);
                 }
 
-                pg.setGraphic(vg);
-                layer.pushBack(pg);
+                placedGraphicElement.addChildElement(vectorGraphicElement);
+                layerElement.addChildElement(placedGraphicElement);
             }
-
-            scene.pushBack(layer);
+            sceneElement.addChildElement(layerElement);
         }
-
-        return scene;
-
+        return std::make_shared<Xml::Element>(sceneElement);
     }
 }

@@ -31,7 +31,7 @@ namespace Xml
         return myAttributes;
     }
 
-    const std::vector<Element>& Element::getChildElements() const
+    const std::vector<std::shared_ptr<Element>>& Element::getChildElements() const
     {
         return myChildElements;
     }
@@ -43,7 +43,7 @@ namespace Xml
 
     void Element::addChildElement(const Element& element)
     {
-        myChildElements.push_back(element);
+        myChildElements.push_back(std::make_shared<Element>(element));
     }
 
 

@@ -6,10 +6,6 @@
 
 namespace Xml
 {
-    using HElement = std::shared_ptr<Element>;
-    using ElementList = std::vector<Element>;
-    using AttributeMap = std::unordered_map<std::string, std::string>;
-
     class Reader
     {
     public:
