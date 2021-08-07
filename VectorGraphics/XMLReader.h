@@ -14,5 +14,9 @@ namespace Xml
     {
     public:
         static HElement loadXml(std::stringstream& istream);
+
+    private:
+        // Helper recursive function to parse XML
+        static Element loadXml(tinyxml2::XMLElement* element);
     };
 }

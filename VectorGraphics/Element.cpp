@@ -2,37 +2,11 @@
 
 namespace Xml
 {
-    Element::Element(std::stringstream& inputStream, std::string elementName)
-        : myElementName(),
+    Element::Element(std::string elementName)
+        : myElementName(elementName),
         myAttributes(),
         myChildElements()
     {
-        tinyxml2::XMLDocument xmlDoc;
-        xmlDoc.Parse(inputStream.str().c_str());
-        tinyxml2::XMLElement* element = xmlDoc.RootElement();
-        while (element->Name() != elementName)
-        {
-            element = element->FirstChildElement();
-        }
-        myElementName = element->Name();
-
-        const tinyxml2::XMLAttribute* pAttr = element->FirstAttribute();
-        while (pAttr)
-        {
-            std::string attrName = pAttr->Name(); // attribute name
-            std::string attrValue = pAttr->Value(); // attribute value
-            myAttributes.emplace(attrName, attrValue);
-            pAttr = pAttr->Next();
-        }
-
-        auto childElement = element->FirstChildElement();
-        while (childElement) {
-            // now loop all children elements
-            myChildElements.emplace_back(inputStream, childElement->Name());
-
-            //next sibling
-            childElement = childElement->NextSiblingElement();
-        }
     }
 
     const std::string Element::getName() const
@@ -62,7 +36,15 @@ namespace Xml
         return myChildElements;
     }
 
+    void Element::addAttribute(const std::string& attributeName, const std::string& attributeValue)
+    {
+        myAttributes.emplace(attributeName, attributeValue);
+    }
 
+    void Element::addChildElement(const Element& element)
+    {
+        myChildElements.push_back(element);
+    }
 
 
 }

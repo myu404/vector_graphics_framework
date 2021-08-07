@@ -75,4 +75,13 @@ TEST(loadXml, XmlReader)
     CHECK_EQUAL(2, attributes.size());
     CHECK_EQUAL("0", placedGraphic->getAttribute("x"));
     CHECK_EQUAL("0", placedGraphic->getAttribute("y"));
+
+    /*
+    Xml::HElement layer1 = std::make_shared<Xml::Element>(children[1]);
+    CHECK_EQUAL("Layer", layer1->getName());
+    attributes = layer1->getAttributes();
+    CHECK(!attributes.empty());
+    CHECK_EQUAL(1, attributes.size());
+    CHECK_EQUAL("mountain", layer1->getAttribute("alias"));
+    */
 }

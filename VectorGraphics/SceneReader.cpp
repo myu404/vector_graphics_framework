@@ -1,6 +1,7 @@
 #include "SceneReader.h"
 #include "VectorGraphic.h"
 #include <sstream>
+#include <iostream>
 
 namespace Framework
 {
@@ -31,6 +32,9 @@ namespace Framework
                 if (vectorGraphicElement.size() != 1) throw std::invalid_argument("PlacedGraphic must have only 1 VectorGraphic");
 
                 VG::HVectorGraphic vg(new VG::VectorGraphic);
+
+                if (vectorGraphicElement.at(0).getAttribute("closed") == "true") vg->closeShape();
+                else vg->openShape();
                 
                 auto pointElements = vectorGraphicElement.at(0).getChildElements();
 
