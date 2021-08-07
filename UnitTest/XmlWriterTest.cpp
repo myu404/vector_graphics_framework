@@ -14,15 +14,18 @@ const char* const SceneXml = STR(
     <PlacedGraphic x="0" y="0">
       <VectorGraphic closed="true">
         <Point x="1" y="2" />
+        <!--Comment1-->
         <Point x="3" y="4" />
         <Point x="5" y="6" />
       </VectorGraphic>
     </PlacedGraphic>
+    <!--Comment2-->
     <PlacedGraphic x="700" y="0">
       <VectorGraphic closed="true">
         <Point x="7" y="8" />
         <Point x="9" y="10" />
         <Point x="11" y="12" />
+        <!-- - etc.11 ---------->
       </VectorGraphic>
     </PlacedGraphic>
   </Layer>
@@ -32,9 +35,11 @@ const char* const SceneXml = STR(
         <Point x="13" y="14" />
         <Point x="15" y="19" />
         <Point x="17" y="18" />
+        <!--etc22... -->
       </VectorGraphic>
     </PlacedGraphic>
   </Layer>
+  <!--etc33... -->
 </Scene>);
 
 
@@ -42,7 +47,7 @@ TEST(writeXmlStringStream, XmlWriter)
 {
     std::stringstream xmlStream(SceneXml);
     Xml::HElement root = Xml::Reader::loadXml(xmlStream);
-    //Xml::Writer::writeXml(root, std::cout);
+    Xml::Writer::writeXml(root, std::cout);
 
     std::stringstream ssInput;
     Xml::Writer::writeXml(root, ssInput);

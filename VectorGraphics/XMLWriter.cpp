@@ -27,7 +27,7 @@ namespace Xml
         os << xmlPrinter.CStr() << std::endl;
     }
 
-    void Writer::writeXml(Xml::HElement element, tinyxml2::XMLDocument& xmlDoc, tinyxml2::XMLElement* xmlElement)
+    void Writer::writeXml(Xml::HElement element, tinyxml2::XMLDocument& xmlDoc, tinyxml2::XMLNode* xmlElement)
     {
         auto childElements = element->getChildElements();
 
@@ -41,6 +41,15 @@ namespace Xml
             }
 
             xmlElement->InsertEndChild(childXmlElement);
+
+            if (element->hasComments())
+            {
+                for (auto comment : element->getComments())
+                {
+                    auto xmlComment = xmlDoc.NewComment(comment->getName().c_str());
+                    xmlElement->InsertEndChild(xmlComment);
+                }
+            }
 
             writeXml(element, xmlDoc, childXmlElement);
         }

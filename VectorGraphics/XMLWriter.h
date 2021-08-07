@@ -12,7 +12,7 @@ namespace Xml
         static void writeXml(Xml::HElement rootElement, std::ostream& os);
 
     private:
-        static void writeXml(Xml::HElement element, tinyxml2::XMLDocument& xmlDoc, tinyxml2::XMLElement* xmlElement);
+        static void writeXml(Xml::HElement element, tinyxml2::XMLDocument& xmlDoc, tinyxml2::XMLNode* xmlElement);
     };
 
 }

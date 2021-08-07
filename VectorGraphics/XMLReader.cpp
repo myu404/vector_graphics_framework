@@ -16,11 +16,18 @@ namespace Xml
     }
 
     // Helper recursive function to parse XML
-    Element Reader::loadXml(tinyxml2::XMLElement* xmlElement)
+    Element Reader::loadXml(tinyxml2::XMLNode* xmlElement)
     {
-        Element element(xmlElement->Name());
-        std::cout << xmlElement->Name() << std::endl;
-        const tinyxml2::XMLAttribute* pAttr = xmlElement->FirstAttribute();
+        Element element(xmlElement->ToElement()->Name());
+
+        auto comment = xmlElement->NextSibling();
+        while (auto xmlComment = dynamic_cast<const tinyxml2::XMLComment*>(comment))
+        {
+            element.addComment(Element(xmlComment->Value()));
+            comment = comment->NextSibling();
+        }
+
+        const tinyxml2::XMLAttribute* pAttr = xmlElement->ToElement()->FirstAttribute();
         while (pAttr)
         {
             std::string attrName = pAttr->Name(); // attribute name
@@ -30,7 +37,8 @@ namespace Xml
         }
 
         auto childElement = xmlElement->FirstChildElement();
-        while (childElement) {
+        while (childElement) 
+        {
             // now loop all children elements
             element.addChildElement(loadXml(childElement));
 

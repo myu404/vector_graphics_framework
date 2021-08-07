@@ -14,6 +14,6 @@ namespace Xml
 
     private:
         // Helper recursive function to parse XML
-        static Element loadXml(tinyxml2::XMLElement* element);
+        static Element loadXml(tinyxml2::XMLNode* element);
     };
 }
