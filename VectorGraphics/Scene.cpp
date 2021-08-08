@@ -1,4 +1,5 @@
 #include "Scene.h"
+#include <stdexcept>
 
 namespace Framework
 {
@@ -16,10 +17,12 @@ namespace Framework
 
     void Scene::remove(Layer const& layer)
     {
-        layers.remove_if([&](const auto& layerElement)
+        auto elementsRemoved = layers.remove_if([&](const auto& layerElement)
             {
                 return layer.getAlias() == layerElement.getAlias();
             });
+
+        if (elementsRemoved == 0) throw std::invalid_argument("Layer does not exist in Scene. Nothing is removed.");
     }
 
     std::list<Layer>::iterator Scene::begin()

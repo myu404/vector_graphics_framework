@@ -10,5 +10,8 @@ namespace Framework
     {
     public:
         static Scene readScene(const Xml::Element& rootElement);
+
+    private:
+        static void assertElement(bool condition, const std::string expected, const std::string actual);
     };
 }

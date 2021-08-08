@@ -1,4 +1,5 @@
 #include "Layer.h"
+#include <stdexcept>
 
 namespace Framework
 {
@@ -15,10 +16,12 @@ namespace Framework
 
     void Layer::remove(PlacedGraphic const& graphic)
     {
-        graphics.remove_if([&](const auto& placedGraphic)
+        auto elementsRemoved = graphics.remove_if([&](const auto& placedGraphic)
             {
                 return placedGraphic == graphic;
             });
+
+        if (elementsRemoved == 0) throw std::invalid_argument("PlacedGraphic does not exist in Layer. Nothing is removed.");
     }
 
     std::list<PlacedGraphic>::iterator Layer::begin()
