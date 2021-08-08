@@ -43,7 +43,7 @@ TEST(WriteScene1stLayer, SceneWriter)
     std::stringstream xmlStream(TestXml);
     
     // Parse the XML stream and create an XML "DOM"
-    Xml::HElement readRoot = Xml::Reader::loadXml(xmlStream);
+    Xml::HElement readRoot = Xml::XmlReader::loadXml(xmlStream);
     
     // Construct a Scene from the DOM
     Framework::Scene scene = Framework::SceneReader::readScene(*readRoot);
@@ -61,7 +61,7 @@ TEST(WriteScene1stLayer, SceneWriter)
 
     Xml::ElementList childElements = root->getChildElements();
     CHECK_EQUAL(2, childElements.size());
-    Xml::HElement child = std::make_shared<Xml::Element>(childElements[0]);
+    Xml::HElement child = std::make_shared<Xml::Element>(childElements.at(0));
 
     CHECK_EQUAL("Layer", child->getName());
     CHECK_EQUAL(1, child->getAttributes().size());
@@ -70,7 +70,7 @@ TEST(WriteScene1stLayer, SceneWriter)
     Xml::ElementList layerElements = child->getChildElements();
     CHECK_EQUAL(2, layerElements.size());
 
-    Xml::HElement layer = std::make_shared<Xml::Element>(layerElements[0]);
+    Xml::HElement layer = std::make_shared<Xml::Element>(layerElements.at(0));
     Xml::AttributeMap placedGraphicAttributes = layer->getAttributes();
     CHECK_EQUAL(2, placedGraphicAttributes.size());
     CHECK_EQUAL("86", layer->getAttribute("x"));
@@ -104,7 +104,7 @@ TEST(WriteScene2ndLayer, SceneWriter)
     std::stringstream xmlStream(TestXml);
 
     // Parse the XML stream and create an XML "DOM"
-    Xml::HElement readRoot = Xml::Reader::loadXml(xmlStream);
+    Xml::HElement readRoot = Xml::XmlReader::loadXml(xmlStream);
 
     // Construct a Scene from the DOM
     Framework::Scene scene = Framework::SceneReader::readScene(*readRoot);
@@ -122,7 +122,7 @@ TEST(WriteScene2ndLayer, SceneWriter)
 
     Xml::ElementList childElements = root->getChildElements();
     CHECK_EQUAL(2, childElements.size());
-    Xml::HElement child = std::make_shared<Xml::Element>(childElements[0]);
+    Xml::HElement child = std::make_shared<Xml::Element>(childElements.at(0));
 
     CHECK_EQUAL("Layer", child->getName());
     CHECK_EQUAL(1, child->getAttributes().size());
@@ -164,7 +164,7 @@ TEST(WriteScene3rdLayer, SceneWriter)
     std::stringstream xmlStream(TestXml);
 
     // Parse the XML stream and create an XML "DOM"
-    Xml::HElement readRoot = Xml::Reader::loadXml(xmlStream);
+    Xml::HElement readRoot = Xml::XmlReader::loadXml(xmlStream);
 
     // Construct a Scene from the DOM
     Framework::Scene scene = Framework::SceneReader::readScene(*readRoot);
@@ -182,7 +182,7 @@ TEST(WriteScene3rdLayer, SceneWriter)
 
     Xml::ElementList childElements = root->getChildElements();
     CHECK_EQUAL(2, childElements.size());
-    Xml::HElement child = std::make_shared<Xml::Element>(childElements[1]);
+    Xml::HElement child = std::make_shared<Xml::Element>(childElements.at(1));
 
     CHECK_EQUAL("Layer", child->getName());
     CHECK_EQUAL(1, child->getAttributes().size());

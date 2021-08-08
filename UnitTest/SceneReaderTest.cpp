@@ -41,7 +41,7 @@ const std::string TestXml = R"(
 TEST(ReadScene, SceneReader)
 {
     std::stringstream xmlStream(TestXml);
-    auto root = Xml::Reader::loadXml(xmlStream);
+    auto root = Xml::XmlReader::loadXml(xmlStream);
 
     auto s = Framework::SceneReader::readScene(*root);
 
@@ -103,7 +103,7 @@ TEST(ReadSceneFile, SceneReader)
 {
     std::ifstream fileStream;
     fileStream.open("fileStream2.xml");
-    auto root = Xml::Reader::loadXml(fileStream);
+    auto root = Xml::XmlReader::loadXml(fileStream);
     fileStream.close();
     auto s = Framework::SceneReader::readScene(*root);
 
@@ -198,7 +198,36 @@ TEST(ReadSceneMissingScene, SceneReader)
 
     bool expectedError = false;
     std::stringstream xmlStream(TestXmlBad);
-    Xml::HElement root = Xml::Reader::loadXml(xmlStream);
+    Xml::HElement root = Xml::XmlReader::loadXml(xmlStream);
+    try
+    {
+        auto s = Framework::SceneReader::readScene(*root);
+    }
+    catch (std::invalid_argument&)
+    {
+        expectedError = true;
+    }
+
+    CHECK(expectedError);
+}
+
+TEST(ReadSceneMissingPlacedGraphic, SceneReader)
+{
+    const std::string TestXmlBad = R"(
+        <Scene width="800" height="600">
+          <Layer alias="mountains">
+              <VectorGraphic closed="false">
+                <Point x="13" y="14" />
+                <Point x="15" y="19" />
+                <Point x="17" y="18" />
+                <!-- etc... -->
+              </VectorGraphic>
+          </Layer>
+        </Scene>)";
+
+    bool expectedError = false;
+    std::stringstream xmlStream(TestXmlBad);
+    Xml::HElement root = Xml::XmlReader::loadXml(xmlStream);
     try
     {
         auto s = Framework::SceneReader::readScene(*root);

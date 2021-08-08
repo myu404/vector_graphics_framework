@@ -7,6 +7,9 @@
 
 namespace Framework
 {
+    // SceneWriter has static function, writeScene, that takes an Element object and
+    // serialize Scene, Layer, PlacedGraphic, VectorGraphic, and Point objects into XML data
+
     class SceneWriter
     {
     public:

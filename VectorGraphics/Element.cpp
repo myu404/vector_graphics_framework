@@ -63,6 +63,7 @@ namespace Xml
     {
         myComments.push_back(element);
     }
+
     bool Element::hasComments()
     {
         return myComments.size() > 0;

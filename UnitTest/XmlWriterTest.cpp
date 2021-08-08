@@ -46,13 +46,13 @@ const char* const SceneXml = STR(
 TEST(writeXmlStringStream, XmlWriter)
 {
     std::stringstream xmlStream(SceneXml);
-    Xml::HElement root = Xml::Reader::loadXml(xmlStream);
-    Xml::Writer::writeXml(root, std::cout);
+    Xml::HElement root = Xml::XmlReader::loadXml(xmlStream);
+    Xml::XmlWriter::writeXml(root, std::cout);
 
     std::stringstream ssInput;
-    Xml::Writer::writeXml(root, ssInput);
+    Xml::XmlWriter::writeXml(root, ssInput);
 
-    Xml::HElement rootFile = Xml::Reader::loadXml(ssInput);
+    Xml::HElement rootFile = Xml::XmlReader::loadXml(ssInput);
 
     CHECK_EQUAL("Scene", rootFile->getName());
     CHECK_EQUAL("800", rootFile->getAttribute("width"));
@@ -69,7 +69,7 @@ TEST(writeXmlStringStream, XmlWriter)
     CHECK(!children.empty());
     CHECK_EQUAL(2, children.size());
 
-    Xml::HElement layer0 = std::make_shared<Xml::Element>(children[0]);
+    Xml::HElement layer0 = std::make_shared<Xml::Element>(children.at(0));
     CHECK_EQUAL("Layer", layer0->getName());
     attributes = layer0->getAttributes();
     CHECK(!attributes.empty());
@@ -79,7 +79,7 @@ TEST(writeXmlStringStream, XmlWriter)
     Xml::ElementList layerChildren = layer0->getChildElements();
     CHECK(!layerChildren.empty());
     CHECK_EQUAL(2, layerChildren.size());
-    Xml::HElement placedGraphic = std::make_shared<Xml::Element>(layerChildren[0]);
+    Xml::HElement placedGraphic = std::make_shared<Xml::Element>(layerChildren.at(0));
     CHECK_EQUAL("PlacedGraphic", placedGraphic->getName());
     attributes = placedGraphic->getAttributes();
     CHECK(!attributes.empty());
@@ -90,14 +90,14 @@ TEST(writeXmlStringStream, XmlWriter)
     Xml::ElementList placedGraphicChildren = placedGraphic->getChildElements();
     CHECK(!placedGraphicChildren.empty());
     CHECK_EQUAL(1, placedGraphicChildren.size());
-    Xml::HElement vectorGraphic = std::make_shared<Xml::Element>(placedGraphicChildren[0]);
+    Xml::HElement vectorGraphic = std::make_shared<Xml::Element>(placedGraphicChildren.at(0));
     CHECK_EQUAL("VectorGraphic", vectorGraphic->getName());
     attributes = vectorGraphic->getAttributes();
     CHECK(!attributes.empty());
     CHECK_EQUAL(1, attributes.size());
     CHECK_EQUAL("true", vectorGraphic->getAttribute("closed"));
 
-    Xml::HElement layer1 = std::make_shared<Xml::Element>(children[1]);
+    Xml::HElement layer1 = std::make_shared<Xml::Element>(children.at(1));
     CHECK_EQUAL("Layer", layer1->getName());
     attributes = layer1->getAttributes();
     CHECK(!attributes.empty());
@@ -109,17 +109,17 @@ TEST(writeXmlFileStream, XmlWriter)
 {
     // Test XMLWriter against file stream. Verify XML is written properly by reading from file
     std::stringstream xmlStream(SceneXml);
-    Xml::HElement root = Xml::Reader::loadXml(xmlStream);
+    Xml::HElement root = Xml::XmlReader::loadXml(xmlStream);
 
     // Write to file
     std::ofstream file("fileStream.xml");
-    Xml::Writer::writeXml(root, file);
+    Xml::XmlWriter::writeXml(root, file);
     file.close();
 
     // Read from file and verify
     std::ifstream fileInput;
     fileInput.open("fileStream.xml");
-    Xml::HElement rootFile = Xml::Reader::loadXml(fileInput);
+    Xml::HElement rootFile = Xml::XmlReader::loadXml(fileInput);
     fileInput.close();
 
     CHECK_EQUAL("Scene", rootFile->getName());
@@ -137,7 +137,7 @@ TEST(writeXmlFileStream, XmlWriter)
     CHECK(!children.empty());
     CHECK_EQUAL(2, children.size());
 
-    Xml::HElement layer0 = std::make_shared<Xml::Element>(children[0]);
+    Xml::HElement layer0 = std::make_shared<Xml::Element>(children.at(0));
     CHECK_EQUAL("Layer", layer0->getName());
     attributes = layer0->getAttributes();
     CHECK(!attributes.empty());
@@ -147,7 +147,7 @@ TEST(writeXmlFileStream, XmlWriter)
     Xml::ElementList layerChildren = layer0->getChildElements();
     CHECK(!layerChildren.empty());
     CHECK_EQUAL(2, layerChildren.size());
-    Xml::HElement placedGraphic = std::make_shared<Xml::Element>(layerChildren[0]);
+    Xml::HElement placedGraphic = std::make_shared<Xml::Element>(layerChildren.at(0));
     CHECK_EQUAL("PlacedGraphic", placedGraphic->getName());
     attributes = placedGraphic->getAttributes();
     CHECK(!attributes.empty());
@@ -158,14 +158,14 @@ TEST(writeXmlFileStream, XmlWriter)
     Xml::ElementList placedGraphicChildren = placedGraphic->getChildElements();
     CHECK(!placedGraphicChildren.empty());
     CHECK_EQUAL(1, placedGraphicChildren.size());
-    Xml::HElement vectorGraphic = std::make_shared<Xml::Element>(placedGraphicChildren[0]);
+    Xml::HElement vectorGraphic = std::make_shared<Xml::Element>(placedGraphicChildren.at(0));
     CHECK_EQUAL("VectorGraphic", vectorGraphic->getName());
     attributes = vectorGraphic->getAttributes();
     CHECK(!attributes.empty());
     CHECK_EQUAL(1, attributes.size());
     CHECK_EQUAL("true", vectorGraphic->getAttribute("closed"));
 
-    Xml::HElement layer1 = std::make_shared<Xml::Element>(children[1]);
+    Xml::HElement layer1 = std::make_shared<Xml::Element>(children.at(1));
     CHECK_EQUAL("Layer", layer1->getName());
     attributes = layer1->getAttributes();
     CHECK(!attributes.empty());
@@ -177,15 +177,15 @@ TEST(writeXmlStringStreamAddElements, XmlWriter)
 {
     // After reading initial XML, add elements and attributes to read XML to it and ensure writing captures it
     std::stringstream xmlStream(SceneXml);
-    Xml::HElement root = Xml::Reader::loadXml(xmlStream);
+    Xml::HElement root = Xml::XmlReader::loadXml(xmlStream);
 
     root->addAttribute("depth", "infinite");
     root->addChildElement(Xml::Element("Test_Layer"));
 
     std::stringstream ssInput;
-    Xml::Writer::writeXml(root, ssInput);
+    Xml::XmlWriter::writeXml(root, ssInput);
 
-    Xml::HElement rootFile = Xml::Reader::loadXml(ssInput);
+    Xml::HElement rootFile = Xml::XmlReader::loadXml(ssInput);
 
     CHECK_EQUAL("Scene", rootFile->getName());
     CHECK_EQUAL("800", rootFile->getAttribute("width"));
@@ -201,7 +201,7 @@ TEST(writeXmlStringStreamAddElements, XmlWriter)
     CHECK(!children.empty());
     CHECK_EQUAL(3, children.size());
 
-    Xml::HElement layerAdded = std::make_shared<Xml::Element>(children[2]);
+    Xml::HElement layerAdded = std::make_shared<Xml::Element>(children.at(2));
     CHECK_EQUAL("Test_Layer", layerAdded->getName());
     attributes = layerAdded->getAttributes();
     CHECK(attributes.empty());

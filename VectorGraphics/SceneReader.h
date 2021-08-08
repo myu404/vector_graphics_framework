@@ -7,6 +7,8 @@
 
 namespace Framework
 {
+    // SceneReader has static function, readScene, that takes an Element object and further
+    // de-serialize XML data into Scene, Layer, PlacedGraphic, VectorGraphic, and Point objects
     class SceneReader
     {
     public:

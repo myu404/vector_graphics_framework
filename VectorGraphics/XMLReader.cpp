@@ -5,8 +5,10 @@
 
 namespace Xml
 {
-    HElement Reader::loadXml(std::istream& istream)
+    HElement XmlReader::loadXml(std::istream& istream)
     {
+        // XmlReader's responsibility is to read XML and catching bad XML format such as missing closing element tag
+        // Checking root element as Scene is SceneReader responsibility
         tinyxml2::XMLDocument xmlDoc;
         std::stringstream ss;
         ss << istream.rdbuf();
@@ -18,7 +20,7 @@ namespace Xml
     }
 
     // Helper recursive function to parse XML
-    Element Reader::loadXml(tinyxml2::XMLNode* xmlElement)
+    Element XmlReader::loadXml(tinyxml2::XMLNode* xmlElement)
     {
         Element element(xmlElement->ToElement()->Name());
 

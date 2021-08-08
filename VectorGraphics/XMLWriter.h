@@ -8,12 +8,13 @@
 
 namespace Xml
 {
-    class Writer
+    class XmlWriter
     {
     public:
         static void writeXml(Xml::HElement rootElement, std::ostream& os);
 
     private:
+        // Helper recursive function to encode/serialize Scene into XML data
         static void writeXml(Xml::HElement element, tinyxml2::XMLDocument& xmlDoc, tinyxml2::XMLNode* xmlElement);
     };
 

@@ -7,6 +7,10 @@ namespace Framework
 {
     Scene SceneReader::readScene(const Xml::Element& rootElement)
     {
+        // XmlReader's responsibility is to read XML and catching bad XML format such as missing closing element tag
+        // Checking root element as Scene is SceneReader responsibility
+        // SceneReader is also responsible for checking XML data has correct Scene hierarchy
+
         assertElement(rootElement.getName() == "Scene", "Scene", rootElement.getName());
 
         int width = std::stoi(rootElement.getAttribute("width"));

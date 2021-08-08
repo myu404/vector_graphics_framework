@@ -6,7 +6,7 @@
 
 namespace Xml
 {
-    void Writer::writeXml(Xml::HElement rootElement, std::ostream& os)
+    void XmlWriter::writeXml(Xml::HElement rootElement, std::ostream& os)
     {
         tinyxml2::XMLDocument xmlDoc;
         tinyxml2::XMLElement* rootXmlElement = xmlDoc.NewElement(rootElement->getName().c_str());
@@ -29,7 +29,7 @@ namespace Xml
         os << xmlPrinter.CStr() << std::endl;
     }
 
-    void Writer::writeXml(Xml::HElement element, tinyxml2::XMLDocument& xmlDoc, tinyxml2::XMLNode* xmlElement)
+    void XmlWriter::writeXml(Xml::HElement element, tinyxml2::XMLDocument& xmlDoc, tinyxml2::XMLNode* xmlElement)
     {
         auto childElements = element->getChildElements();
 

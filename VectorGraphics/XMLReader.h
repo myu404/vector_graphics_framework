@@ -7,7 +7,7 @@
 
 namespace Xml
 {
-    class Reader
+    class XmlReader
     {
     public:
         static HElement loadXml(std::istream& istream);
