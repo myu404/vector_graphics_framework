@@ -35,8 +35,8 @@ namespace Xml
 
         for (auto element : childElements)
         {
-            auto childXmlElement = xmlDoc.NewElement(element->getName().c_str());
-            auto elementAttributes = element->getAttributes();
+            auto childXmlElement = xmlDoc.NewElement(element.getName().c_str());
+            auto elementAttributes = element.getAttributes();
             for (auto attr : elementAttributes)
             {
                 childXmlElement->SetAttribute(attr.first.c_str(), attr.second.c_str());
@@ -44,16 +44,16 @@ namespace Xml
 
             xmlElement->InsertEndChild(childXmlElement);
 
-            if (element->hasComments())
+            if (element.hasComments())
             {
-                for (auto comment : element->getComments())
+                for (auto comment : element.getComments())
                 {
-                    auto xmlComment = xmlDoc.NewComment(comment->getName().c_str());
+                    auto xmlComment = xmlDoc.NewComment(comment.getName().c_str());
                     xmlElement->InsertEndChild(xmlComment);
                 }
             }
 
-            writeXml(element, xmlDoc, childXmlElement);
+            writeXml(std::make_shared<Element>(element), xmlDoc, childXmlElement);
         }
     }
 }

@@ -18,35 +18,35 @@ namespace Framework
 
         for (auto layerElement = layerElements.begin(); layerElement != layerElements.end(); ++layerElement)
         {
-            assertElement(layerElement->get()->getName() == "Layer", "Layer", layerElement->get()->getName());
+            assertElement(layerElement->getName() == "Layer", "Layer", layerElement->getName());
 
-            Layer layer(layerElement->get()->getAttribute("alias"));
+            Layer layer(layerElement->getAttribute("alias"));
 
-            auto placedGraphicElements = layerElement->get()->getChildElements();
+            auto placedGraphicElements = layerElement->getChildElements();
 
             for (auto placedGraphicElement = placedGraphicElements.begin(); placedGraphicElement != placedGraphicElements.end(); ++placedGraphicElement)
             {
-                assertElement(placedGraphicElement->get()->getName() == "PlacedGraphic", "PlacedGraphic", placedGraphicElement->get()->getName());
+                assertElement(placedGraphicElement->getName() == "PlacedGraphic", "PlacedGraphic", placedGraphicElement->getName());
 
-                auto vectorGraphicElement = placedGraphicElement->get()->getChildElements();
+                auto vectorGraphicElement = placedGraphicElement->getChildElements();
 
                 if (vectorGraphicElement.size() != 1) throw std::invalid_argument("PlacedGraphic must have only 1 VectorGraphic");
-                assertElement(vectorGraphicElement.at(0)->getName() == "VectorGraphic", "VectorGraphic", vectorGraphicElement.at(0)->getName());
+                assertElement(vectorGraphicElement.at(0).getName() == "VectorGraphic", "VectorGraphic", vectorGraphicElement.at(0).getName());
 
                 VG::HVectorGraphic vg(new VG::VectorGraphic);
 
-                (vectorGraphicElement.at(0)->getAttribute("closed") == "true") ? vg->closeShape() : vg->openShape();
+                (vectorGraphicElement.at(0).getAttribute("closed") == "true") ? vg->closeShape() : vg->openShape();
                 
-                auto pointElements = vectorGraphicElement.at(0)->getChildElements();
+                auto pointElements = vectorGraphicElement.at(0).getChildElements();
 
                 for (auto pointElement : pointElements)
                 {
-                    assertElement(pointElement->getName() == "Point", "Point", pointElement->getName());
-                    vg->addPoint(VG::Point(std::stoi(pointElement->getAttribute("x")), std::stoi(pointElement->getAttribute("y"))));
+                    assertElement(pointElement.getName() == "Point", "Point", pointElement.getName());
+                    vg->addPoint(VG::Point(std::stoi(pointElement.getAttribute("x")), std::stoi(pointElement.getAttribute("y"))));
                 }
 
                 PlacedGraphic pg;
-                VG::Point point(std::stoi(placedGraphicElement->get()->getAttribute("x")), std::stoi(placedGraphicElement->get()->getAttribute("y")));
+                VG::Point point(std::stoi(placedGraphicElement->getAttribute("x")), std::stoi(placedGraphicElement->getAttribute("y")));
                 
                 auto graphicWidth = point.getX() + vg->getWidth();
                 auto graphicHeight = point.getY() + vg->getHeight();

@@ -34,12 +34,12 @@ namespace Xml
         return myAttributes;
     }
 
-    const std::vector<std::shared_ptr<Element>>& Element::getChildElements() const
+    const std::vector<Element>& Element::getChildElements() const
     {
         return myChildElements;
     }
 
-    const std::vector<std::shared_ptr<Element>>& Element::getComments() const
+    const std::vector<Element>& Element::getComments() const
     {
         return myComments;
     }
@@ -51,7 +51,7 @@ namespace Xml
 
     void Element::addChildElement(const Element& element)
     {
-        myChildElements.push_back(std::make_shared<Element>(element));
+        myChildElements.push_back(element);
     }
 
     void Element::setName(const std::string name)
@@ -61,7 +61,7 @@ namespace Xml
 
     void Element::addComment(const Element& element)
     {
-        myComments.push_back(std::make_shared<Element>(element));
+        myComments.push_back(element);
     }
     bool Element::hasComments()
     {

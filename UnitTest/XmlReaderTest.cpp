@@ -57,7 +57,7 @@ TEST(loadXml, XmlReader)
     CHECK(!children.empty());
     CHECK_EQUAL(2, children.size());
 
-    Xml::HElement layer0 = children[0];
+    Xml::HElement layer0 = std::make_shared<Xml::Element>(children[0]);
     CHECK_EQUAL("Layer", layer0->getName());
     attributes = layer0->getAttributes();
     CHECK(!attributes.empty());
@@ -67,7 +67,7 @@ TEST(loadXml, XmlReader)
     Xml::ElementList layerChildren = layer0->getChildElements();
     CHECK(!layerChildren.empty());
     CHECK_EQUAL(2, layerChildren.size());
-    Xml::HElement placedGraphic = layerChildren[0];
+    Xml::HElement placedGraphic = std::make_shared<Xml::Element>(layerChildren[0]);
     CHECK_EQUAL("PlacedGraphic", placedGraphic->getName());
     attributes = placedGraphic->getAttributes();
     CHECK(!attributes.empty());
@@ -76,7 +76,7 @@ TEST(loadXml, XmlReader)
     CHECK_EQUAL("0", placedGraphic->getAttribute("y"));
 
     
-    Xml::HElement layer1 = children[1];
+    Xml::HElement layer1 = std::make_shared<Xml::Element>(children[1]);
     CHECK_EQUAL("Layer", layer1->getName());
     attributes = layer1->getAttributes();
     CHECK(!attributes.empty());

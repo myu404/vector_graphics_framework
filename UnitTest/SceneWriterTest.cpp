@@ -38,7 +38,7 @@ const char* const TestXml = STR(
 </Scene>);
 
 
-TEST(WriteScene, SceneWriter)
+TEST(WriteScene1stLayer, SceneWriter)
 {
     std::stringstream xmlStream(TestXml);
     
@@ -61,7 +61,7 @@ TEST(WriteScene, SceneWriter)
 
     Xml::ElementList childElements = root->getChildElements();
     CHECK_EQUAL(2, childElements.size());
-    Xml::HElement child = childElements[0];
+    Xml::HElement child = std::make_shared<Xml::Element>(childElements[0]);
 
     CHECK_EQUAL("Layer", child->getName());
     CHECK_EQUAL(1, child->getAttributes().size());
@@ -70,14 +70,15 @@ TEST(WriteScene, SceneWriter)
     Xml::ElementList layerElements = child->getChildElements();
     CHECK_EQUAL(2, layerElements.size());
 
-    Xml::AttributeMap placedGraphicAttributes = layerElements[0]->getAttributes();
+    Xml::HElement layer = std::make_shared<Xml::Element>(layerElements[0]);
+    Xml::AttributeMap placedGraphicAttributes = layer->getAttributes();
     CHECK_EQUAL(2, placedGraphicAttributes.size());
-    CHECK_EQUAL("86", layerElements[0]->getAttribute("x"));
-    CHECK_EQUAL("99", layerElements[0]->getAttribute("y"));
+    CHECK_EQUAL("86", layer->getAttribute("x"));
+    CHECK_EQUAL("99", layer->getAttribute("y"));
 
-    Xml::ElementList placedGraphicElements = layerElements[0]->getChildElements();
+    Xml::ElementList placedGraphicElements = layer->getChildElements();
     CHECK_EQUAL(1, placedGraphicElements.size());
-    Xml::Element& vectorGraphic = *placedGraphicElements[0];
+    Xml::Element& vectorGraphic = placedGraphicElements[0];
     CHECK_EQUAL(1, vectorGraphic.getAttributes().size());
     CHECK_EQUAL("true", vectorGraphic.getAttribute("closed"));
 
@@ -85,20 +86,20 @@ TEST(WriteScene, SceneWriter)
     CHECK_EQUAL(3, pointElements.size());
 
 
-    CHECK_EQUAL("Point", pointElements[0]->getName());
-    CHECK_EQUAL("1", pointElements[0]->getAttribute("x"));
-    CHECK_EQUAL("2", pointElements[0]->getAttribute("y"));
+    CHECK_EQUAL("Point", pointElements[0].getName());
+    CHECK_EQUAL("1", pointElements[0].getAttribute("x"));
+    CHECK_EQUAL("2", pointElements[0].getAttribute("y"));
 
-    CHECK_EQUAL("Point", pointElements[1]->getName());
-    CHECK_EQUAL("3", pointElements[1]->getAttribute("x"));
-    CHECK_EQUAL("4", pointElements[1]->getAttribute("y"));
+    CHECK_EQUAL("Point", pointElements[1].getName());
+    CHECK_EQUAL("3", pointElements[1].getAttribute("x"));
+    CHECK_EQUAL("4", pointElements[1].getAttribute("y"));
 
-    CHECK_EQUAL("Point", pointElements[2]->getName());
-    CHECK_EQUAL("5", pointElements[2]->getAttribute("x"));
-    CHECK_EQUAL("6", pointElements[2]->getAttribute("y"));
+    CHECK_EQUAL("Point", pointElements[2].getName());
+    CHECK_EQUAL("5", pointElements[2].getAttribute("x"));
+    CHECK_EQUAL("6", pointElements[2].getAttribute("y"));
 }
 
-TEST(WriteScene2, SceneWriter)
+TEST(WriteScene2ndLayer, SceneWriter)
 {
     std::stringstream xmlStream(TestXml);
 
@@ -121,7 +122,7 @@ TEST(WriteScene2, SceneWriter)
 
     Xml::ElementList childElements = root->getChildElements();
     CHECK_EQUAL(2, childElements.size());
-    Xml::HElement child = childElements[0];
+    Xml::HElement child = std::make_shared<Xml::Element>(childElements[0]);
 
     CHECK_EQUAL("Layer", child->getName());
     CHECK_EQUAL(1, child->getAttributes().size());
@@ -130,14 +131,14 @@ TEST(WriteScene2, SceneWriter)
     Xml::ElementList layerElements = child->getChildElements();
     CHECK_EQUAL(2, layerElements.size());
 
-    Xml::AttributeMap placedGraphicAttributes = layerElements[1]->getAttributes();
+    Xml::AttributeMap placedGraphicAttributes = layerElements[1].getAttributes();
     CHECK_EQUAL(2, placedGraphicAttributes.size());
-    CHECK_EQUAL("700", layerElements[1]->getAttribute("x"));
-    CHECK_EQUAL("0", layerElements[1]->getAttribute("y"));
+    CHECK_EQUAL("700", layerElements[1].getAttribute("x"));
+    CHECK_EQUAL("0", layerElements[1].getAttribute("y"));
 
-    Xml::ElementList placedGraphicElements = layerElements[1]->getChildElements();
+    Xml::ElementList placedGraphicElements = layerElements[1].getChildElements();
     CHECK_EQUAL(1, placedGraphicElements.size());
-    Xml::Element& vectorGraphic = *placedGraphicElements[0];
+    Xml::Element& vectorGraphic = placedGraphicElements[0];
     CHECK_EQUAL(1, vectorGraphic.getAttributes().size());
     CHECK_EQUAL("false", vectorGraphic.getAttribute("closed"));
 
@@ -145,20 +146,20 @@ TEST(WriteScene2, SceneWriter)
     CHECK_EQUAL(3, pointElements.size());
 
 
-    CHECK_EQUAL("Point", pointElements[0]->getName());
-    CHECK_EQUAL("7", pointElements[0]->getAttribute("x"));
-    CHECK_EQUAL("8", pointElements[0]->getAttribute("y"));
+    CHECK_EQUAL("Point", pointElements[0].getName());
+    CHECK_EQUAL("7", pointElements[0].getAttribute("x"));
+    CHECK_EQUAL("8", pointElements[0].getAttribute("y"));
 
-    CHECK_EQUAL("Point", pointElements[1]->getName());
-    CHECK_EQUAL("9", pointElements[1]->getAttribute("x"));
-    CHECK_EQUAL("10", pointElements[1]->getAttribute("y"));
+    CHECK_EQUAL("Point", pointElements[1].getName());
+    CHECK_EQUAL("9", pointElements[1].getAttribute("x"));
+    CHECK_EQUAL("10", pointElements[1].getAttribute("y"));
 
-    CHECK_EQUAL("Point", pointElements[2]->getName());
-    CHECK_EQUAL("11", pointElements[2]->getAttribute("x"));
-    CHECK_EQUAL("12", pointElements[2]->getAttribute("y"));
+    CHECK_EQUAL("Point", pointElements[2].getName());
+    CHECK_EQUAL("11", pointElements[2].getAttribute("x"));
+    CHECK_EQUAL("12", pointElements[2].getAttribute("y"));
 }
 
-TEST(WriteScene3, SceneWriter)
+TEST(WriteScene3rdLayer, SceneWriter)
 {
     std::stringstream xmlStream(TestXml);
 
@@ -181,7 +182,7 @@ TEST(WriteScene3, SceneWriter)
 
     Xml::ElementList childElements = root->getChildElements();
     CHECK_EQUAL(2, childElements.size());
-    Xml::HElement child = childElements[1];
+    Xml::HElement child = std::make_shared<Xml::Element>(childElements[1]);
 
     CHECK_EQUAL("Layer", child->getName());
     CHECK_EQUAL(1, child->getAttributes().size());
@@ -190,14 +191,14 @@ TEST(WriteScene3, SceneWriter)
     Xml::ElementList layerElements = child->getChildElements();
     CHECK_EQUAL(1, layerElements.size());
 
-    Xml::AttributeMap placedGraphicAttributes = layerElements[0]->getAttributes();
+    Xml::AttributeMap placedGraphicAttributes = layerElements[0].getAttributes();
     CHECK_EQUAL(2, placedGraphicAttributes.size());
-    CHECK_EQUAL("250", layerElements[0]->getAttribute("x"));
-    CHECK_EQUAL("250", layerElements[0]->getAttribute("y"));
+    CHECK_EQUAL("250", layerElements[0].getAttribute("x"));
+    CHECK_EQUAL("250", layerElements[0].getAttribute("y"));
 
-    Xml::ElementList placedGraphicElements = layerElements[0]->getChildElements();
+    Xml::ElementList placedGraphicElements = layerElements[0].getChildElements();
     CHECK_EQUAL(1, placedGraphicElements.size());
-    Xml::Element& vectorGraphic = *placedGraphicElements[0];
+    Xml::Element& vectorGraphic = placedGraphicElements[0];
     CHECK_EQUAL(1, vectorGraphic.getAttributes().size());
     CHECK_EQUAL("false", vectorGraphic.getAttribute("closed"));
 
@@ -205,15 +206,15 @@ TEST(WriteScene3, SceneWriter)
     CHECK_EQUAL(3, pointElements.size());
 
 
-    CHECK_EQUAL("Point", pointElements[0]->getName());
-    CHECK_EQUAL("13", pointElements[0]->getAttribute("x"));
-    CHECK_EQUAL("14", pointElements[0]->getAttribute("y"));
+    CHECK_EQUAL("Point", pointElements[0].getName());
+    CHECK_EQUAL("13", pointElements[0].getAttribute("x"));
+    CHECK_EQUAL("14", pointElements[0].getAttribute("y"));
 
-    CHECK_EQUAL("Point", pointElements[1]->getName());
-    CHECK_EQUAL("15", pointElements[1]->getAttribute("x"));
-    CHECK_EQUAL("19", pointElements[1]->getAttribute("y"));
+    CHECK_EQUAL("Point", pointElements[1].getName());
+    CHECK_EQUAL("15", pointElements[1].getAttribute("x"));
+    CHECK_EQUAL("19", pointElements[1].getAttribute("y"));
 
-    CHECK_EQUAL("Point", pointElements[2]->getName());
-    CHECK_EQUAL("17", pointElements[2]->getAttribute("x"));
-    CHECK_EQUAL("18", pointElements[2]->getAttribute("y"));
+    CHECK_EQUAL("Point", pointElements[2].getName());
+    CHECK_EQUAL("17", pointElements[2].getAttribute("x"));
+    CHECK_EQUAL("18", pointElements[2].getAttribute("y"));
 }

@@ -69,7 +69,7 @@ TEST(writeXmlStringStream, XmlWriter)
     CHECK(!children.empty());
     CHECK_EQUAL(2, children.size());
 
-    Xml::HElement layer0 = children[0];
+    Xml::HElement layer0 = std::make_shared<Xml::Element>(children[0]);
     CHECK_EQUAL("Layer", layer0->getName());
     attributes = layer0->getAttributes();
     CHECK(!attributes.empty());
@@ -79,7 +79,7 @@ TEST(writeXmlStringStream, XmlWriter)
     Xml::ElementList layerChildren = layer0->getChildElements();
     CHECK(!layerChildren.empty());
     CHECK_EQUAL(2, layerChildren.size());
-    Xml::HElement placedGraphic = layerChildren[0];
+    Xml::HElement placedGraphic = std::make_shared<Xml::Element>(layerChildren[0]);
     CHECK_EQUAL("PlacedGraphic", placedGraphic->getName());
     attributes = placedGraphic->getAttributes();
     CHECK(!attributes.empty());
@@ -90,14 +90,14 @@ TEST(writeXmlStringStream, XmlWriter)
     Xml::ElementList placedGraphicChildren = placedGraphic->getChildElements();
     CHECK(!placedGraphicChildren.empty());
     CHECK_EQUAL(1, placedGraphicChildren.size());
-    Xml::HElement vectorGraphic = placedGraphicChildren[0];
+    Xml::HElement vectorGraphic = std::make_shared<Xml::Element>(placedGraphicChildren[0]);
     CHECK_EQUAL("VectorGraphic", vectorGraphic->getName());
     attributes = vectorGraphic->getAttributes();
     CHECK(!attributes.empty());
     CHECK_EQUAL(1, attributes.size());
     CHECK_EQUAL("true", vectorGraphic->getAttribute("closed"));
 
-    Xml::HElement layer1 = children[1];
+    Xml::HElement layer1 = std::make_shared<Xml::Element>(children[1]);
     CHECK_EQUAL("Layer", layer1->getName());
     attributes = layer1->getAttributes();
     CHECK(!attributes.empty());
@@ -137,7 +137,7 @@ TEST(writeXmlFileStream, XmlWriter)
     CHECK(!children.empty());
     CHECK_EQUAL(2, children.size());
 
-    Xml::HElement layer0 = children[0];
+    Xml::HElement layer0 = std::make_shared<Xml::Element>(children[0]);
     CHECK_EQUAL("Layer", layer0->getName());
     attributes = layer0->getAttributes();
     CHECK(!attributes.empty());
@@ -147,7 +147,7 @@ TEST(writeXmlFileStream, XmlWriter)
     Xml::ElementList layerChildren = layer0->getChildElements();
     CHECK(!layerChildren.empty());
     CHECK_EQUAL(2, layerChildren.size());
-    Xml::HElement placedGraphic = layerChildren[0];
+    Xml::HElement placedGraphic = std::make_shared<Xml::Element>(layerChildren[0]);
     CHECK_EQUAL("PlacedGraphic", placedGraphic->getName());
     attributes = placedGraphic->getAttributes();
     CHECK(!attributes.empty());
@@ -158,14 +158,14 @@ TEST(writeXmlFileStream, XmlWriter)
     Xml::ElementList placedGraphicChildren = placedGraphic->getChildElements();
     CHECK(!placedGraphicChildren.empty());
     CHECK_EQUAL(1, placedGraphicChildren.size());
-    Xml::HElement vectorGraphic = placedGraphicChildren[0];
+    Xml::HElement vectorGraphic = std::make_shared<Xml::Element>(placedGraphicChildren[0]);
     CHECK_EQUAL("VectorGraphic", vectorGraphic->getName());
     attributes = vectorGraphic->getAttributes();
     CHECK(!attributes.empty());
     CHECK_EQUAL(1, attributes.size());
     CHECK_EQUAL("true", vectorGraphic->getAttribute("closed"));
 
-    Xml::HElement layer1 = children[1];
+    Xml::HElement layer1 = std::make_shared<Xml::Element>(children[1]);
     CHECK_EQUAL("Layer", layer1->getName());
     attributes = layer1->getAttributes();
     CHECK(!attributes.empty());
@@ -201,7 +201,7 @@ TEST(writeXmlStringStreamAddElements, XmlWriter)
     CHECK(!children.empty());
     CHECK_EQUAL(3, children.size());
 
-    Xml::HElement layerAdded = children[2];
+    Xml::HElement layerAdded = std::make_shared<Xml::Element>(children[2]);
     CHECK_EQUAL("Test_Layer", layerAdded->getName());
     attributes = layerAdded->getAttributes();
     CHECK(attributes.empty());
