@@ -30,6 +30,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="..\..\UnitTest\ElementTest.cpp" />
     <ClCompile Include="..\..\UnitTest\LayerTest.cpp" />
     <ClCompile Include="..\..\UnitTest\PlacedGraphicTest.cpp" />
     <ClCompile Include="..\..\UnitTest\PointTest.cpp" />
@@ -40,7 +41,6 @@
     <ClCompile Include="..\..\UnitTest\XmlReaderTest.cpp" />
     <ClCompile Include="..\..\UnitTest\XmlWriterTest.cpp" />
     <ClCompile Include="..\..\VectorGraphics\main.cpp" />
-    <ClCompile Include="ElementTest.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>

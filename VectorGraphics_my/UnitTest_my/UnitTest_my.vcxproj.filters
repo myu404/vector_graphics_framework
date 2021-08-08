@@ -45,7 +45,7 @@
     <ClCompile Include="..\..\UnitTest\XmlWriterTest.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="ElementTest.cpp">
+    <ClCompile Include="..\..\UnitTest\ElementTest.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
