@@ -28,6 +28,10 @@ namespace Framework
         std::list<Layer>::iterator end();
         int getWidth() const;
         int getHeight() const;
+
+        bool operator==(const Scene&) const = default;
+        bool operator!=(const Scene&) const = default;
+
     private:
         std::list<Layer> layers;
         int width;

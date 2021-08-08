@@ -79,8 +79,7 @@ TEST(copyCtor, Scene)
 
     CHECK_EQUAL(scene.getWidth(), sceneCopy.getWidth());
     CHECK_EQUAL(scene.getHeight(), sceneCopy.getHeight());
-    // Need to implement equality operators for Layer to perform the following check
-    //CHECK(std::equal(scene.begin(), scene.end(), sceneCopy.begin()));
+    CHECK(std::equal(scene.begin(), scene.end(), sceneCopy.begin()));
 }
 
 TEST(copyAssign, Scene)
@@ -90,12 +89,39 @@ TEST(copyAssign, Scene)
     scene.pushBack(Framework::Layer("Sea"));
     scene.pushBack(Framework::Layer("Sky"));
 
-    Framework::Scene sceneCopy = scene;
+    Framework::Scene sceneCopy(1980, 1080);
+    sceneCopy = scene;
 
     CHECK_EQUAL(scene.getWidth(), sceneCopy.getWidth());
     CHECK_EQUAL(scene.getHeight(), sceneCopy.getHeight());
-    // Need to implement equality operators for Layer to perform the following check
-    //CHECK(std::equal(scene.begin(), scene.end(), sceneCopy.begin()));
+    CHECK(std::equal(scene.begin(), scene.end(), sceneCopy.begin()));
+}
+
+TEST(moveCtor, Scene)
+{
+    Framework::Scene scene(800, 600);
+    scene.pushBack(Framework::Layer("Mountains"));
+    scene.pushBack(Framework::Layer("Sea"));
+    scene.pushBack(Framework::Layer("Sky"));
+
+    Framework::Scene sceneCopy(std::move(scene));
+
+    CHECK_EQUAL(sceneCopy.getWidth(),800);
+    CHECK_EQUAL(sceneCopy.getHeight(), 600);
+}
+
+TEST(moveAssign, Scene)
+{
+    Framework::Scene scene(800, 600);
+    scene.pushBack(Framework::Layer("Mountains"));
+    scene.pushBack(Framework::Layer("Sea"));
+    scene.pushBack(Framework::Layer("Sky"));
+
+    Framework::Scene sceneCopy(1980, 1080);
+    sceneCopy = std::move(scene);
+
+    CHECK_EQUAL(sceneCopy.getWidth(), 800);
+    CHECK_EQUAL(sceneCopy.getHeight(), 600);
 }
 
 TEST(iteratorBegin, Scene)

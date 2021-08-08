@@ -45,7 +45,8 @@ TEST(copyAssign, PlacedGraphic)
 {
     VG::HVectorGraphic vg(new VG::VectorGraphic);
     Framework::PlacedGraphic pg(VG::Point(44, 55), vg);
-    Framework::PlacedGraphic pgCopy = pg;
+    Framework::PlacedGraphic pgCopy(VG::Point(999, 9999), vg);
+    pgCopy = pg;
 
     CHECK_EQUAL(pg.getPlacementPoint(), pgCopy.getPlacementPoint());
     CHECK_EQUAL(pg.getGraphic()->getPointCount(), pgCopy.getGraphic()->getPointCount());
@@ -56,7 +57,36 @@ TEST(copyAssign, PlacedGraphic)
     CHECK(pg.getGraphic().get() != pgCopy.getGraphic().get());
 }
 
-// How to test for move semantics
+TEST(moveCtor, PlacedGraphic)
+{
+    VG::HVectorGraphic vg(new VG::VectorGraphic);
+    vg->addPoint(VG::Point{ 1, 1 });
+    vg->addPoint(VG::Point{ 2, 2 });
+    Framework::PlacedGraphic pg(VG::Point(44, 55), vg);
+    Framework::PlacedGraphic pgMove(std::move(pg));
+
+    CHECK_EQUAL(pgMove.getPlacementPoint(), VG::Point(44, 55));
+    CHECK_EQUAL(pgMove.getGraphic()->getPointCount(), 2);
+    CHECK(pgMove.getGraphic()->isClosed());
+}
+
+TEST(moveAssignment, PlacedGraphic)
+{
+    VG::HVectorGraphic vg(new VG::VectorGraphic);
+    vg->addPoint(VG::Point{ 1, 1 });
+    vg->addPoint(VG::Point{ 2, 2 });
+    Framework::PlacedGraphic pg(VG::Point(44, 55), vg);
+
+    VG::HVectorGraphic vg2(new VG::VectorGraphic);
+    vg2->addPoint(VG::Point{ 3, 3 });
+    vg2->openShape();
+    Framework::PlacedGraphic pgMove(VG::Point(66, 77), vg);
+    pgMove = std::move(pg);
+
+    CHECK_EQUAL(pgMove.getPlacementPoint(), VG::Point(44, 55));
+    CHECK_EQUAL(pgMove.getGraphic()->getPointCount(), 2);
+    CHECK(pgMove.getGraphic()->isClosed());
+}
 
 TEST(setPlacementPoint, PlacedGraphic)
 {

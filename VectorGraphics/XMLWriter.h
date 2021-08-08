@@ -1,8 +1,10 @@
 #pragma once
-#include "..\tinyxml2-master\tinyxml2.h"
+
 #include "Element.h"
+#include "tinyxml2.h"
+//#include "..\tinyxml2-master\tinyxml2.h"
 #include <ostream>
-//#include "tinyxml2.h"
+
 
 namespace Xml
 {

@@ -159,5 +159,54 @@ TEST(ReadSceneFile, SceneReader)
 
     // Expect 2 layers
     CHECK_EQUAL(2, numberOfLayers);
+}
 
+TEST(ReadSceneMissingScene, SceneReader)
+{
+    // Bad XML format such as missing closing element tag
+    // XmlReader's responsibility is to read XML
+    // Checking root element as Scene is SceneReader responsibility
+    const std::string TestXmlBad = R"(
+          <Layer alias="sky">
+            <PlacedGraphic x="0" y="0">
+              <VectorGraphic closed="true">
+                <Point x="1" y="2" />
+                <!-- Comment -->
+                <Point x="3" y="4" />
+                <Point x="5" y="6" />
+              </VectorGraphic>
+            </PlacedGraphic>
+            <!-- Comment -->
+            <PlacedGraphic x="700" y="0">
+              <VectorGraphic closed="false">
+                <Point x="7" y="8" />
+                <Point x="9" y="10" />
+                <Point x="11" y="12" />
+              </VectorGraphic>
+            </PlacedGraphic>
+          </Layer>
+          <Layer alias="mountains">
+            <PlacedGraphic x="250" y="250">
+              <VectorGraphic closed="false">
+                <Point x="13" y="14" />
+                <Point x="15" y="19" />
+                <Point x="17" y="18" />
+                <!-- etc... -->
+              </VectorGraphic>
+            </PlacedGraphic>
+          </Layer>)";
+
+    bool expectedError = false;
+    std::stringstream xmlStream(TestXmlBad);
+    Xml::HElement root = Xml::Reader::loadXml(xmlStream);
+    try
+    {
+        auto s = Framework::SceneReader::readScene(*root);
+    }
+    catch (std::invalid_argument&)
+    {
+        expectedError = true;
+    }
+
+    CHECK(expectedError);
 }

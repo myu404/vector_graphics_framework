@@ -15,7 +15,7 @@ namespace Framework
         Layer(const std::string name);
         ~Layer() = default;
 
-        // Using default compiler generated move and copy semantics for Scene class
+        // Using default compiler generated move and copy semantics for Layer class
         // Member-wise move and copy semantics will invoke the member's move and copy semantics
         Layer(const Layer& other) = default;
         Layer(Layer&& other) = default;
@@ -27,6 +27,9 @@ namespace Framework
         std::list<PlacedGraphic>::iterator begin();
         std::list<PlacedGraphic>::iterator end();
         std::string getAlias() const;
+
+        bool operator==(const Layer&) const = default;
+        bool operator!=(const Layer&) const = default;
 
         /*
         static class PlacedGraphicIterator : public std::list<PlacedGraphic>::iterator

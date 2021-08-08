@@ -24,7 +24,7 @@ TEST(copyCtor, VectorGraphic)
     vg.addPoint(VG::Point{ 2, 2 });
 
     VG::VectorGraphic vgCopy(vg);
-    
+
     CHECK(vg == vgCopy);
 }
 
@@ -34,7 +34,10 @@ TEST(copyAssignment, VectorGraphic)
     vg.addPoint(VG::Point{ 1, 1 });
     vg.addPoint(VG::Point{ 2, 2 });
 
-    VG::VectorGraphic vgCopy = vg;
+    VG::VectorGraphic vgCopy;
+    vgCopy.addPoint(VG::Point{ 3, 3 });
+    vgCopy = vg;
+
 
     CHECK(vg == vgCopy);
 }
@@ -58,7 +61,9 @@ TEST(moveAssignment, VectorGraphic)
     vg.addPoint(VG::Point{ 1, 1 });
     vg.addPoint(VG::Point{ 2, 2 });
 
-    VG::VectorGraphic vgMove = std::move(vg);
+    VG::VectorGraphic vgMove;
+
+    vgMove = std::move(vg);
 
     CHECK(vg != vgMove);
 }
@@ -66,10 +71,10 @@ TEST(moveAssignment, VectorGraphic)
 TEST(insertPoint, VectorGraphic)
 {
     VG::VectorGraphic vg;
-    vg.addPoint(VG::Point{1, 1});
+    vg.addPoint(VG::Point{ 1, 1 });
     CHECK_EQUAL(1, vg.getPointCount());
 
-    vg.addPoint(VG::Point{2, 2});
+    vg.addPoint(VG::Point{ 2, 2 });
     CHECK_EQUAL(2, vg.getPointCount());
 }
 
@@ -88,9 +93,9 @@ TEST(insertPointLvalue, VectorGraphic)
 TEST(removePoint, VectorGraphic)
 {
     VG::VectorGraphic vg;
-    vg.addPoint(VG::Point{1, 1});
-    vg.addPoint(VG::Point{2, 2});
-    vg.removePoint(VG::Point{1, 1});
+    vg.addPoint(VG::Point{ 1, 1 });
+    vg.addPoint(VG::Point{ 2, 2 });
+    vg.removePoint(VG::Point{ 1, 1 });
 
     CHECK_EQUAL(1, vg.getPointCount());
     CHECK_EQUAL(VG::Point(2, 2), vg.getPoint(0));
@@ -119,9 +124,9 @@ TEST(removePointNotInPoints, VectorGraphic)
 TEST(erasePoint, VectorGraphic)
 {
     VG::VectorGraphic vg;
-    vg.addPoint(VG::Point{1, 1});
-    vg.addPoint(VG::Point{2, 2});
-    vg.addPoint(VG::Point{3, 3});
+    vg.addPoint(VG::Point{ 1, 1 });
+    vg.addPoint(VG::Point{ 2, 2 });
+    vg.addPoint(VG::Point{ 3, 3 });
     vg.erasePoint(1);
 
     CHECK_EQUAL(2, vg.getPointCount());
@@ -132,9 +137,9 @@ TEST(erasePoint, VectorGraphic)
 TEST(erasePointOutOfRange, VectorGraphic)
 {
     VG::VectorGraphic vg;
-    vg.addPoint(VG::Point{1, 1});
-    vg.addPoint(VG::Point{2, 2});
-    vg.addPoint(VG::Point{3, 3});
+    vg.addPoint(VG::Point{ 1, 1 });
+    vg.addPoint(VG::Point{ 2, 2 });
+    vg.addPoint(VG::Point{ 3, 3 });
 
     try
     {
@@ -172,14 +177,14 @@ TEST(getPointOutOfRange, VectorGraphic)
 TEST(equality, VectorGraphic)
 {
     VG::VectorGraphic vg1;
-    vg1.addPoint(VG::Point{1, 1});
-    vg1.addPoint(VG::Point{2, 2});
-    vg1.addPoint(VG::Point{3, 3});
+    vg1.addPoint(VG::Point{ 1, 1 });
+    vg1.addPoint(VG::Point{ 2, 2 });
+    vg1.addPoint(VG::Point{ 3, 3 });
 
     VG::VectorGraphic vg2;
-    vg2.addPoint(VG::Point{1, 1});
-    vg2.addPoint(VG::Point{2, 2});
-    vg2.addPoint(VG::Point{3, 3});
+    vg2.addPoint(VG::Point{ 1, 1 });
+    vg2.addPoint(VG::Point{ 2, 2 });
+    vg2.addPoint(VG::Point{ 3, 3 });
 
     CHECK(vg1 == vg2);
 }
@@ -187,21 +192,21 @@ TEST(equality, VectorGraphic)
 TEST(inequality, VectorGraphic)
 {
     VG::VectorGraphic vg1;
-    vg1.addPoint(VG::Point{1, 1});
-    vg1.addPoint(VG::Point{1, 2});
-    vg1.addPoint(VG::Point{1, 3});
+    vg1.addPoint(VG::Point{ 1, 1 });
+    vg1.addPoint(VG::Point{ 1, 2 });
+    vg1.addPoint(VG::Point{ 1, 3 });
 
     VG::VectorGraphic vg2;
-    vg2.addPoint(VG::Point{2, 1});
-    vg2.addPoint(VG::Point{2, 2});
-    vg2.addPoint(VG::Point{2, 3});
+    vg2.addPoint(VG::Point{ 2, 1 });
+    vg2.addPoint(VG::Point{ 2, 2 });
+    vg2.addPoint(VG::Point{ 2, 3 });
 
     CHECK(vg1 != vg2);
 
     VG::VectorGraphic vg3;
-    vg3.addPoint(VG::Point{1, 1});
-    vg3.addPoint(VG::Point{1, 2});
-    vg3.addPoint(VG::Point{1, 3});
+    vg3.addPoint(VG::Point{ 1, 1 });
+    vg3.addPoint(VG::Point{ 1, 2 });
+    vg3.addPoint(VG::Point{ 1, 3 });
     vg3.openShape();
 
     CHECK(vg3 != vg1);
@@ -226,10 +231,10 @@ TEST(openShape, VectorGraphic)
 TEST(widthHeight, VectorGraphic)
 {
     VG::VectorGraphic vectorGraphic;
-    vectorGraphic.addPoint(VG::Point{0, 2});
-    vectorGraphic.addPoint(VG::Point{4, 3});
-    vectorGraphic.addPoint(VG::Point{5, 8});
-    vectorGraphic.addPoint(VG::Point{2, 1});
+    vectorGraphic.addPoint(VG::Point{ 0, 2 });
+    vectorGraphic.addPoint(VG::Point{ 4, 3 });
+    vectorGraphic.addPoint(VG::Point{ 5, 8 });
+    vectorGraphic.addPoint(VG::Point{ 2, 1 });
     CHECK_EQUAL(5, vectorGraphic.getWidth());
     CHECK_EQUAL(7, vectorGraphic.getHeight());
 

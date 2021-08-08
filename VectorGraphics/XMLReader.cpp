@@ -11,6 +11,7 @@ namespace Xml
         ss << istream.rdbuf();
         xmlDoc.Parse(ss.str().c_str());
         tinyxml2::XMLElement* element = xmlDoc.RootElement();
+        if (!element) throw std::invalid_argument("ERROR: Failed to read XML.Bad XML format.");
 
         return std::make_shared<Element>(loadXml(element));
     }

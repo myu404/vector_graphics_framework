@@ -62,8 +62,8 @@ TEST(writeXmlStringStream, XmlWriter)
     Xml::AttributeMap attributes = rootFile->getAttributes();
     CHECK(!attributes.empty());
     CHECK_EQUAL(2, attributes.size());
-    CHECK_EQUAL("800", attributes["width"])
-    CHECK_EQUAL("600", attributes["height"])
+    CHECK_EQUAL("800", attributes["width"]);
+    CHECK_EQUAL("600", attributes["height"]);
 
     Xml::ElementList children = rootFile->getChildElements();
     CHECK(!children.empty());
@@ -107,13 +107,16 @@ TEST(writeXmlStringStream, XmlWriter)
 
 TEST(writeXmlFileStream, XmlWriter)
 {
+    // Test XMLWriter against file stream. Verify XML is written properly by reading from file
     std::stringstream xmlStream(SceneXml);
     Xml::HElement root = Xml::Reader::loadXml(xmlStream);
 
+    // Write to file
     std::ofstream file("fileStream.xml");
     Xml::Writer::writeXml(root, file);
     file.close();
 
+    // Read from file and verify
     std::ifstream fileInput;
     fileInput.open("fileStream.xml");
     Xml::HElement rootFile = Xml::Reader::loadXml(fileInput);
@@ -127,10 +130,10 @@ TEST(writeXmlFileStream, XmlWriter)
     Xml::AttributeMap attributes = rootFile->getAttributes();
     CHECK(!attributes.empty());
     CHECK_EQUAL(2, attributes.size());
-    CHECK_EQUAL("800", attributes["width"])
-        CHECK_EQUAL("600", attributes["height"])
+    CHECK_EQUAL("800", attributes["width"]);
+    CHECK_EQUAL("600", attributes["height"]);
 
-        Xml::ElementList children = rootFile->getChildElements();
+    Xml::ElementList children = rootFile->getChildElements();
     CHECK(!children.empty());
     CHECK_EQUAL(2, children.size());
 
@@ -168,4 +171,38 @@ TEST(writeXmlFileStream, XmlWriter)
     CHECK(!attributes.empty());
     CHECK_EQUAL(1, attributes.size());
     CHECK_EQUAL("mountains", layer1->getAttribute("alias"));
+}
+
+TEST(writeXmlStringStreamAddElements, XmlWriter)
+{
+    // After reading initial XML, add elements and attributes to read XML to it and ensure writing captures it
+    std::stringstream xmlStream(SceneXml);
+    Xml::HElement root = Xml::Reader::loadXml(xmlStream);
+
+    root->addAttribute("depth", "infinite");
+    root->addChildElement(Xml::Element("Test_Layer"));
+
+    std::stringstream ssInput;
+    Xml::Writer::writeXml(root, ssInput);
+
+    Xml::HElement rootFile = Xml::Reader::loadXml(ssInput);
+
+    CHECK_EQUAL("Scene", rootFile->getName());
+    CHECK_EQUAL("800", rootFile->getAttribute("width"));
+    CHECK_EQUAL("600", rootFile->getAttribute("height"));
+    CHECK(!root->getAttribute("depth").empty());
+
+    Xml::AttributeMap attributes = rootFile->getAttributes();
+    CHECK(!attributes.empty());
+    CHECK_EQUAL(3, attributes.size());
+    CHECK_EQUAL("infinite", attributes["depth"]);
+
+    Xml::ElementList children = rootFile->getChildElements();
+    CHECK(!children.empty());
+    CHECK_EQUAL(3, children.size());
+
+    Xml::HElement layerAdded = children[2];
+    CHECK_EQUAL("Test_Layer", layerAdded->getName());
+    attributes = layerAdded->getAttributes();
+    CHECK(attributes.empty());
 }

@@ -1,9 +1,6 @@
+#pragma once
+
 #include "SceneWriter.h"
-#include "VectorGraphic.h"
-#include "Scene.h"
-#include "Element.h"
-#include <sstream>
-#include <iostream>
 
 namespace Framework
 {

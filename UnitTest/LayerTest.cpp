@@ -97,10 +97,40 @@ TEST(copyAssign, Layer)
     layer.pushBack(Framework::PlacedGraphic(VG::Point(33, 44), vg));
     layer.pushBack(Framework::PlacedGraphic(VG::Point(55, 66), vg));
 
-    Framework::Layer layerCopy = layer;
+    Framework::Layer layerCopy("Copy");
+    layerCopy = layer;
 
     CHECK_EQUAL(layer.getAlias(), layerCopy.getAlias());
     CHECK(std::equal(layer.begin(), layer.end(), layerCopy.begin()));
+}
+
+TEST(moveCtor, Layer)
+{
+    Framework::Layer layer("Test");
+    VG::HVectorGraphic vg(new VG::VectorGraphic);
+    Framework::PlacedGraphic pg(VG::Point(44, 55), vg);
+    layer.pushBack(Framework::PlacedGraphic(VG::Point(11, 22), vg));
+    layer.pushBack(Framework::PlacedGraphic(VG::Point(33, 44), vg));
+    layer.pushBack(Framework::PlacedGraphic(VG::Point(55, 66), vg));
+
+    Framework::Layer layerCopy(std::move(layer));
+
+    CHECK_EQUAL(layerCopy.getAlias(), "Test");
+}
+
+TEST(moveAssign, Layer)
+{
+    Framework::Layer layer("Test");
+    VG::HVectorGraphic vg(new VG::VectorGraphic);
+    Framework::PlacedGraphic pg(VG::Point(44, 55), vg);
+    layer.pushBack(Framework::PlacedGraphic(VG::Point(11, 22), vg));
+    layer.pushBack(Framework::PlacedGraphic(VG::Point(33, 44), vg));
+    layer.pushBack(Framework::PlacedGraphic(VG::Point(55, 66), vg));
+
+    Framework::Layer layerCopy("Copy");
+    layerCopy = std::move(layer);
+
+    CHECK_EQUAL(layerCopy.getAlias(), "Test");
 }
 
 TEST(iteratorBegin, Layer)

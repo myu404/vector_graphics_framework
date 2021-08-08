@@ -18,7 +18,7 @@ namespace Framework
 
         for (auto layerElement = layerElements.begin(); layerElement != layerElements.end(); ++layerElement)
         {
-            assertElement(layerElement->get()-> getName() == "Layer", "Layer", layerElement->get()->getName());
+            assertElement(layerElement->get()->getName() == "Layer", "Layer", layerElement->get()->getName());
 
             Layer layer(layerElement->get()->getAttribute("alias"));
 
@@ -26,12 +26,12 @@ namespace Framework
 
             for (auto placedGraphicElement = placedGraphicElements.begin(); placedGraphicElement != placedGraphicElements.end(); ++placedGraphicElement)
             {
-                assertElement(placedGraphicElement->get()-> getName() == "PlacedGraphic", "PlacedGraphic", placedGraphicElement->get()->getName());
+                assertElement(placedGraphicElement->get()->getName() == "PlacedGraphic", "PlacedGraphic", placedGraphicElement->get()->getName());
 
                 auto vectorGraphicElement = placedGraphicElement->get()->getChildElements();
 
                 if (vectorGraphicElement.size() != 1) throw std::invalid_argument("PlacedGraphic must have only 1 VectorGraphic");
-                assertElement(vectorGraphicElement.at(0)-> getName() == "VectorGraphic", "VectorGraphic", vectorGraphicElement.at(0)->getName());
+                assertElement(vectorGraphicElement.at(0)->getName() == "VectorGraphic", "VectorGraphic", vectorGraphicElement.at(0)->getName());
 
                 VG::HVectorGraphic vg(new VG::VectorGraphic);
 
@@ -41,7 +41,7 @@ namespace Framework
 
                 for (auto pointElement : pointElements)
                 {
-                    assertElement(pointElement-> getName() == "Point", "Point", pointElement->getName());
+                    assertElement(pointElement->getName() == "Point", "Point", pointElement->getName());
                     vg->addPoint(VG::Point(std::stoi(pointElement->getAttribute("x")), std::stoi(pointElement->getAttribute("y"))));
                 }
 
