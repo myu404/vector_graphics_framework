@@ -34,7 +34,10 @@ TEST(copyAssignment, VectorGraphic)
     vg.addPoint(VG::Point{ 1, 1 });
     vg.addPoint(VG::Point{ 2, 2 });
 
-    VG::VectorGraphic vgCopy = vg;
+    VG::VectorGraphic vgCopy;
+    vgCopy.addPoint(VG::Point{ 3, 3 });
+    vgCopy = vg;
+
 
     CHECK(vg == vgCopy);
 }
@@ -58,7 +61,9 @@ TEST(moveAssignment, VectorGraphic)
     vg.addPoint(VG::Point{ 1, 1 });
     vg.addPoint(VG::Point{ 2, 2 });
 
-    VG::VectorGraphic vgMove = std::move(vg);
+    VG::VectorGraphic vgMove;
+    
+    vgMove = std::move(vg);
 
     CHECK(vg != vgMove);
 }
