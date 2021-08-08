@@ -1,7 +1,7 @@
+#pragma once
+
 #include "SceneReader.h"
-#include "VectorGraphic.h"
 #include <sstream>
-#include <iostream>
 
 namespace Framework
 {

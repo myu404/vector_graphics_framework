@@ -1,4 +1,5 @@
 #pragma once
+
 #include "PlacedGraphic.h"
 #include <list>
 #include <string>

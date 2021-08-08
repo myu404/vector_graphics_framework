@@ -3,7 +3,6 @@
 #include "Layer.h"
 #include <list>
 
-
 namespace Framework
 {
     class Scene

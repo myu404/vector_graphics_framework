@@ -3,7 +3,6 @@
 #include "Point.h"
 #include "VectorGraphic.h"
 
-
 namespace VG
 {
     using HVectorGraphic = std::shared_ptr<VG::VectorGraphic>;

@@ -1,3 +1,5 @@
+#pragma once
+
 #include "PlacedGraphic.h"
 
 namespace Framework

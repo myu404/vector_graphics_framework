@@ -1,4 +1,7 @@
+#pragma once
+
 #include "Element.h"
+#include <stdexcept>
 
 namespace Xml
 {

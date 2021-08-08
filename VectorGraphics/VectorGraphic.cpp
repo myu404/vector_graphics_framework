@@ -5,6 +5,8 @@
 * 7/20/2021
 */
 
+#pragma once
+
 #include "VectorGraphic.h"
 
 #include <algorithm>

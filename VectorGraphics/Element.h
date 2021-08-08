@@ -1,12 +1,12 @@
 #pragma once
-#include "..\tinyxml2-master\tinyxml2.h"
+
+#include "tinyxml2.h"
+//#include "..\tinyxml2-master\tinyxml2.h"
 #include <string>
-#include <istream>
 #include <memory>
 #include <list>
-#include <sstream>
-#include <unordered_map>
 #include <vector>
+#include <unordered_map>
 
 namespace Xml
 {

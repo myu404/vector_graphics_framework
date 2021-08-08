@@ -1,6 +1,7 @@
+#pragma once
+
 #include "XMLReader.h"
 #include <sstream>
-#include <iostream>
 
 namespace Xml
 {

@@ -1,6 +1,8 @@
+#pragma once
+
 #include "XMLWriter.h"
 #include <sstream>
-#include <string>
+
 
 namespace Xml
 {
