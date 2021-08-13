@@ -1,3 +1,10 @@
+/*
+* Author: Michael Yu
+* C++ Programming, Summer 2021
+* Vector Graphics Framework: Assignment 01
+* 7/20/2021
+*/
+
 #pragma once
 
 #include <iosfwd>
