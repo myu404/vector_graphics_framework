@@ -44,3 +44,4 @@
 /VectorGraphics_my/x64/*
 /VectorGraphics_my/CppUnitLite_my/x64/*
 /VectorGraphics_my/.vs/*
+*.xml

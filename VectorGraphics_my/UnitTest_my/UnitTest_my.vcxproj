@@ -19,6 +19,9 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\tinyxml2-master\tinyxml2\tinyxml2.vcxproj">
+      <Project>{d1c528b6-aa02-4d29-9d61-dc08e317a70d}</Project>
+    </ProjectReference>
     <ProjectReference Include="..\CppUnitLite_my\CppUnitLite_my.vcxproj">
       <Project>{827c81e6-9019-49e9-9ada-d1cb6ab3e123}</Project>
     </ProjectReference>
@@ -27,8 +30,16 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="..\..\UnitTest\ElementTest.cpp" />
+    <ClCompile Include="..\..\UnitTest\LayerTest.cpp" />
+    <ClCompile Include="..\..\UnitTest\PlacedGraphicTest.cpp" />
     <ClCompile Include="..\..\UnitTest\PointTest.cpp" />
+    <ClCompile Include="..\..\UnitTest\SceneReaderTest.cpp" />
+    <ClCompile Include="..\..\UnitTest\SceneTest.cpp" />
+    <ClCompile Include="..\..\UnitTest\SceneWriterTest.cpp" />
     <ClCompile Include="..\..\UnitTest\VectorGraphicTest.cpp" />
+    <ClCompile Include="..\..\UnitTest\XmlReaderTest.cpp" />
+    <ClCompile Include="..\..\UnitTest\XmlWriterTest.cpp" />
     <ClCompile Include="..\..\VectorGraphics\main.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
@@ -101,7 +112,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>..\..\CppUnitLite;..\..\VectorGraphics</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\..\tinyxml2-master;..\..\CppUnitLite;..\..\VectorGraphics</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpplatest</LanguageStandard>
     </ClCompile>
     <Link>
@@ -117,7 +128,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>..\..\CppUnitLite;..\..\VectorGraphics</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\..\tinyxml2-master;..\..\CppUnitLite;..\..\VectorGraphics</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpplatest</LanguageStandard>
     </ClCompile>
     <Link>
@@ -133,7 +144,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>..\..\CppUnitLite;..\..\VectorGraphics</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\..\tinyxml2-master;..\..\CppUnitLite;..\..\VectorGraphics</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpplatest</LanguageStandard>
     </ClCompile>
     <Link>
@@ -149,7 +160,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>..\..\CppUnitLite;..\..\VectorGraphics</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\..\tinyxml2-master;..\..\CppUnitLite;..\..\VectorGraphics</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpplatest</LanguageStandard>
     </ClCompile>
     <Link>

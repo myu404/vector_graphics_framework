@@ -5,8 +5,9 @@
 * 7/20/2021
 */
 
+#pragma once
+
 #include "Point.h"
-#include <iostream>
 
 namespace VG
 {

@@ -5,6 +5,8 @@
 * 7/20/2021
 */
 
+#pragma once
+
 #include "VectorGraphic.h"
 
 #include <algorithm>
@@ -108,6 +110,7 @@ namespace VG
         return myPath.at(index);
     }
 
+    /*
     bool VectorGraphic::operator==(const VectorGraphic& other) const
     {
         return myShapeStyle == other.myShapeStyle && myPath == other.myPath;
@@ -117,4 +120,5 @@ namespace VG
     {
         return !(*this == other);
     }
+    */
 }
